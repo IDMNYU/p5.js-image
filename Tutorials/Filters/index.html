@@ -1,0 +1,168 @@
+<!DOCTYPE html PUBLIC>
+<html>
+
+<head>
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+	<link rel="stylesheet" href="style.css">
+
+	<link href='https://fonts.googleapis.com/css?family=Andika' rel='stylesheet'>
+
+	<link rel="shortcut icon" href="glasses2.jpg" type="image/x-icon" />
+
+	<script
+	  src="https://code.jquery.com/jquery-3.4.0.min.js"
+	  integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg="
+	  crossorigin="anonymous">
+	</script>
+
+	<title>Image Processing</title>
+</head>
+
+<body>
+
+	<div class="header">
+		<h1><a href="../index.html">Image Procesing in p5.js</a></h1>
+	</div>
+
+	<div class="wrapper">
+		<div class="bar">
+			<div class="navigation">
+				<p class="subtitle">Tutorials</p>
+				<ul class="nav flex-column">
+				 	<li class="nav-item">
+				    	<a class="nav-link active" href="index.html">Filters</a>
+				  	</li>
+				  	<li class="nav-item">
+				    	<a class="nav-link" href="">Tutorial 01</a>
+				  	</li>
+				  	<li class="nav-item">
+				    	<a class="nav-link" href="">Tutorial 02</a>
+				  	</li>
+				  	<li class="nav-item">
+				    	<a class="nav-link" href="">Tutorial 02</a>
+				  	</li>
+				  	<li class="nav-item">
+				    	<a class="nav-link" href="" tabindex="-1" aria-disabled="true">Tutorial 03</a>
+				  	</li>
+				  	<li class="nav-item">
+				    	<a class="nav-link" href="" tabindex="-1" aria-disabled="true">Tutorial 04</a>
+				  	</li>
+				</ul>
+			</div>
+
+			<br>
+
+			<div class="toggle">
+			   <nav>
+					<div class="dropdown">
+					  <button onclick="myFunction()" class="dropbtn">Projects</button>
+					  <div id="myDropdown" class="dropdown-content">
+						<ul class="nav flex-column">
+						 	<li class="nav-item">
+						    	<a class="nav-link active" href="pawair.html">PawAir</a>
+						  	</li>
+						  	<li class="nav-item">
+						    	<a class="nav-link" href="smartpet.html">Smar+Pet</a>
+						  	</li>
+						  	<li class="nav-item">
+						    	<a class="nav-link" href="women.html">Women's Archive</a>
+						  	</li>
+						  	<li class="nav-item">
+						    	<a class="nav-link" href="puppy.html">Feed the Puppy</a>
+						  	</li>
+						  	<li class="nav-item">
+						    	<a class="nav-link" href="firstimpressions.html" tabindex="-1" aria-disabled="true">First Impressions</a>
+						  	</li>
+						  	<li class="nav-item">
+						    	<a class="nav-link" href="wait.html" tabindex="-1" aria-disabled="true">Wait...</a>
+						  	</li>
+						</ul>
+					  </div>
+					</div>
+			   </nav>
+			</div>
+
+		</div>	
+
+		<div class="content">
+<!-- 			<div class="me">
+				<a href="http://aribennett.net/" target="_blank"><img class="center" src="me.PNG" alt="Illustation of Paolla" height="200" width="200" ></a>
+			</div> -->
+			<div class="description">
+				<h2 class="title">Making Filters Using p5.js!</h2>
+				<br>
+				<ol>
+			    	<li><a href="#bw">Black & White</a></li>
+			    	<li><a href="#sepia">Sepia</a></li>
+			    	<li><a href="#neg">Negative</a></li>
+    			</ol>
+    			<h2 class="title" id="bw">Black & White</h2>
+			      <p>In the <a target="_blank" href="https://p5js.org/learn/color.html">RGBA</a> color system, we get greys whenever the red, green, and blue values are the same. Having that in mind, the most basic (but not exactly accurate) way of creating a greyscale filter, is to get the average rgb value of each pixel, and setting the variables r, g, and b to that number. Lets create a variable called bw and set it to the average of rgb:</p>
+			      <p>var bw = r + g + b / 3;</p>
+			      <div class="imgctr2">
+				      <img src="assets/bw2_code.PNG" alt="Vertigo">
+				      <img src="assets/bw2.PNG" alt="Vertigo">
+			      </div>
+			      <br>
+			      <br>
+			      <p>Awesome, you did it! You made a black and white filter. But if my previous statement saying that this method is not very accurate sparked your curiosity, I'll ellaborate. The human eye does not process all colors the same way. It actually prioritizes some colors over others. To create an accurate "average" of rgb values, we need to follow the <a target="_blank" href="https://www.mathworks.com/matlabcentral/answers/67725-how-weights-are-assigned-to-each-rgb-component-in-function-rgb2gray">luma formula</a>, which give us the weights red, green, and blue actually have.</p>
+			      <p>var luma = r*0.299 + g*0.587 + b*0.0114;</p>
+			      <div class="imgctr2">
+				      <img src="assets/bw_code.PNG" alt="Vertigo">
+				      <img src="assets/bw.PNG" alt="Vertigo">
+			      </div>
+			      <br>
+			      <br>
+
+    			<h2 class="title" id="sepia">Sepia</h2>
+			    	<p>Just like different colors have different weights in order to create a black and white filter, we need to prioritize certain colors to create a Sepia filter. However, unlike the Black & White filter, we don't have one formula we can use for all three colors (r,g,b). We need three different formulas: one for red, one for green, and one for blue. Sepia is a reddish brown color and to get effect, these are the values Microsoft recomends:</p>
+						<p> var tr = (r * 0.393) + (g * 0.769) + (b * 0.189);</p>
+						<p> var tg = (r * 0.349) + (g * 0.686) + (b * 0.168);</p>
+						<p> var tb = (r * 0.272) + (g * 0.534) + (b * 0.131);</p>
+					<p>Now we need to set our canva's r, g, b values to the values we just calculated:</p>
+						<p> r = tr;</p>
+						<p> g = tg;</p>
+						<p> b = tb;</p>
+			      <div class="imgctr2">
+				      <img src="assets/sepia_code.PNG" alt="Vertigo">
+				      <img src="assets/sepia.PNG" alt="Vertigo">
+			      </div>
+			      <br>
+			      <br>
+
+    			<h2 class="title" id="neg">Negative</h2>
+			      <p>Creating a negative filter is going to be the easiest one so far! All you have to do is subtract the pixels, r, g, b values from white to reverse it. This sounds harder than it actually is, so we'll just show it to you:</p>
+						<p> r = 255 - r;</p>
+						<p> g = 255 - g;</p>
+						<p> b = 255 - b;</p>
+					<p>Just by playing around with which colors you reserse, you can create a full set of filters! Here are a couple more of examples:</p>
+			      <div class="imgctr2">
+				      <img src="assets/vertigo_code.PNG" alt="Vertigo">
+				      <img src="assets/vertigo.PNG" alt="Vertigo">
+			      </div>
+			      <br>
+			      <br>
+			      <div class="imgctr2">
+				      <img src="assets/penelope_code.PNG" alt="Penelope">
+				      <img src="assets/penelope.PNG" alt="Penelope">
+			      </div>
+			      <br>
+			      <br>
+				
+			</div>
+		</div>
+
+	</div>
+
+
+	<!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="script.js"></script>
+</body>
+</html>

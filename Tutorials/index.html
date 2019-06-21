@@ -1,0 +1,226 @@
+<!DOCTYPE html PUBLIC>
+<html>
+
+<head>
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+	<link rel="stylesheet" href="style.css">
+
+	<link href='https://fonts.googleapis.com/css?family=Andika' rel='stylesheet'>
+
+	<link rel="shortcut icon" href="glasses2.jpg" type="image/x-icon" />
+
+	<script
+	  src="https://code.jquery.com/jquery-3.4.0.min.js"
+	  integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg="
+	  crossorigin="anonymous">
+	</script>
+
+	<title>Image Processing</title>
+</head>
+
+<body>
+
+	<div class="header">
+		<h1><a href="index.html">Image Procesing in p5.js</a></h1>
+	</div>
+
+	<div class="wrapper">
+		<div class="bar">
+			<div class="navigation">
+				<p class="subtitle">Tutorials</p>
+				<ul class="nav flex-column">
+				 	<li class="nav-item">
+				    	<a class="nav-link" href="Filters/index.html">Filters</a>
+				  	</li>
+				  	<li class="nav-item">
+				    	<a class="nav-link" href="">Tutorial 01</a>
+				  	</li>
+				  	<li class="nav-item">
+				    	<a class="nav-link" href="">Tutorial 02</a>
+				  	</li>
+				  	<li class="nav-item">
+				    	<a class="nav-link" href="">Tutorial 02</a>
+				  	</li>
+				  	<li class="nav-item">
+				    	<a class="nav-link" href="" tabindex="-1" aria-disabled="true">Tutorial 03</a>
+				  	</li>
+				  	<li class="nav-item">
+				    	<a class="nav-link" href="" tabindex="-1" aria-disabled="true">Tutorial 04</a>
+				  	</li>
+				</ul>
+			</div>
+
+			<br>
+
+			<div class="toggle">
+			   <nav>
+					<div class="dropdown">
+					  <button onclick="myFunction()" class="dropbtn">Projects</button>
+					  <div id="myDropdown" class="dropdown-content">
+						<ul class="nav flex-column">
+						 	<li class="nav-item">
+						    	<a class="nav-link active" href="pawair.html">PawAir</a>
+						  	</li>
+						  	<li class="nav-item">
+						    	<a class="nav-link" href="smartpet.html">Smar+Pet</a>
+						  	</li>
+						  	<li class="nav-item">
+						    	<a class="nav-link" href="women.html">Women's Archive</a>
+						  	</li>
+						  	<li class="nav-item">
+						    	<a class="nav-link" href="puppy.html">Feed the Puppy</a>
+						  	</li>
+						  	<li class="nav-item">
+						    	<a class="nav-link" href="firstimpressions.html" tabindex="-1" aria-disabled="true">First Impressions</a>
+						  	</li>
+						  	<li class="nav-item">
+						    	<a class="nav-link" href="wait.html" tabindex="-1" aria-disabled="true">Wait...</a>
+						  	</li>
+						</ul>
+					  </div>
+					</div>
+			   </nav>
+			</div>
+
+		</div>	
+
+		<div class="content">
+<!-- 			<div class="me">
+				<a href="http://aribennett.net/" target="_blank"><img class="center" src="me.PNG" alt="Illustation of Paolla" height="200" width="200" ></a>
+			</div> -->
+
+
+			<div class="description">
+				<h2 class="title">Getting Started with the p5.js Pixel Array</h2>
+				<br>
+				<ol>
+			    	<li><a href="#pixels">What is the Pixel Array?</a></li>
+			    	<li><a href="#density">Pixels Density</a></li>
+			    	<li><a href="#loading">Loading Pixels</a></li>
+			    	<li><a href="#loops">Double For Loop</a></li>
+			    	<li><a href="#index">Indexing</a></li>
+			    	<li><a href="#update">Update Pixels</a></li>
+    			</ol>
+
+
+    			<h2 class="title" id="pixels">Pixel Array</h2>
+			      <p>There are a few programming languages that provide us with a list containing all the pixels displayed on the screen. In p5.js, this list is a flat array with the <a target="_blank" href="https://p5js.org/learn/color.html">RGBA</a> values of every pixel on the canvas. Since each pixel is described with four pieces of information, it takes up four slots on the Pixel Array.</p>
+			      <p>pixels = [p1, p1, p1, p1, p2, p2, p2, p2, p3, p3, p3, p3, ...]</p>
+			      <p>Those pieces of information correspond to the pixel's rgba values (red, green, blue & alpha), which range from 0 to 255.</p>
+			      <div class="imgctr">
+				      <img src="Basics/assets/rgba-05.jpg" alt="Double For Loop">
+			      </div>
+			      <br>
+			      <p>That means if the first pixel on the screen (upper left) is black and the second pixel (its right neighbor) is white, this is how they would be displayed on the Pixel Array:</p>
+			      <p>pixels = [0, 0, 0, 255, 255, 255, 255, 255, ...]</p>
+
+
+				<h2 class="title" id="density">Pixel Density</h2>
+			      <p>If your computer is relatively new, chances are it has a screen that compacts a punch of pixels into one, generating higher definition. In order for our code to work, we need a more rudimentary setup. In order to do that, in your function setup(), insert:</p>
+			      <p>pixelDensity(1);</p>
+			      <div class="imgctr">
+				      <img src="Basics/assets/density.PNG" alt="Double For Loop">
+			      </div>
+			      <p>This will make sure your canvas will only display one pixel per pixel. Back to the old roots.</p>
+			      <div class="imgctr2">
+				      <img src="Basics/assets/gradient2.PNG" alt="Double For Loop">
+				      <img src="Basics/assets/gradient.PNG" alt="Double For Loop">
+			      </div>
+				<br>
+				<br>
+
+
+				<h2 class="title" id="loading">Loading Pixels</h2>
+			      <p>The first step to acess the Pixel Array on your p5.js sketch, is to upload it. To get a Pixel Array for your entire canvas, in the beginning of your function draw(), insert:</p>
+			      <p><a target="_blank" href="https://p5js.org/reference/#/p5/loadPixels">loadPixels();</a></p>
+			      <p>If you don't want to mess with your whole canvas, just an image, insert:</p>
+			      <p>img.loadPixels();</p>
+			      <p>(img == variable name of your image)</p>
+			      <p>[ATTENTION:] pixels (or img.pixels) is the name p5.js gave to our Pixel Array! You'll need to remember this later.</p>
+
+
+				<h2 class="title" id="loops">Double For Loop</h2>
+			      <p>If you are looking to manipulate your whole canvas, you are going to need a double <a target="_blank" href="https://p5js.org/examples/control-iteration.html">for loop</a> going through every column and every row of your screen. Our goal is to go thourgh the first row (x by x), move one y down, go through every x again, and move one y down again, and... you get the idea.</p>
+			      <div class="imgctr2">
+				      <img src="Basics/assets/loops.PNG" alt="Double For Loop">
+				      <img src="Basics/assets/order.gif" alt="Gif">
+			      </div>
+			      <br>
+			      <br>
+			      <p>We are increasing x, but at a particular y level. That means our y's will be our outer for loop, and our x's are our inner loop.</p>
+
+
+				<h2 class="title" id="index">Indexing</h2>
+			      <p>Navigating through every pixel on the screen is hard enough, but navigating though every RGBA value of every pixel is even harder. To make your life easier, navigate through your Pixel Array 4 by 4 (since each pixel takes up 4 slots). To do that, inside your for loop initiate an index varible which will be the r value (first value) of each pixel.</p>
+			      <p>var index = (x + y * width)*4;</p>
+			      <div class="imgctr">
+				      <img src="Basics/assets/grids-04.jpg" alt="Double For Loop">
+			      </div>
+			      <br>
+			      <br>
+			      <p>Since our index varible correspondt to r(ed) and it moves 4 by 4, index+1 is g(reen), index+2 is b(lue), and index+3 is a(lpha).</p>
+			      <p>To make your life easier, initalize there variables:</p>
+			      <p>var r = pixels[index+0];</p>
+			      <p>var g = pixels[index+1];</p>
+			      <p>var b = pixels[index+2];</p>
+			      <p>var a = pixels[index+3];</p>
+			      <p>Your for loop should look like this so far:</p>
+			      <div class="imgctr">
+				      <img src="Basics/assets/indexing.PNG" alt="Double For Loop">
+			      </div>
+			      <br>
+			      <br>
+			      <p>Use img.pixels[ ] if you used an image instead of your canvas</p>
+			      <p>Cool, awesome, great! That's your mise en place for playing with pixels. Now all you have to do is write your recipe and let the program follow it!</p>
+			      <p>The recipe we'll be sharing with you today is how to make a noisy rainbow gradient out of your canvas.</p>
+			      <ol>
+			        <li>Set every red value to it's x position.</li>
+			        <li>Set every green value to a random number between 0 and 255.</li>
+			        <li>Set every blue value to it's y position.</li>
+			        <li>Set every alpha to 255</li>
+			      </ol>
+			      <p>Your code should look like this:</p>
+			      <div class="imgctr">
+				      <img src="Basics/assets/rainbow.PNG" alt="Double For Loop">
+			      </div>
+			      <br>
+			      <br>
+			      <p>Use img.pixels instead if you used an image instead of your canvas</p>
+
+
+				<h2 class="title" id="update">Update Pixels</h2>
+			      <p>Almost done! Since you manipulated your Pixel Array, you need to update it so that your canvas can display it to you. Right before the end of the scope of your function draw(), insert this:</p>
+			      <p>updatePixels();</p>
+			      <div class="imgctr">
+				      <img src="Basics/assets/full_code.PNG" alt="Double For Loop">
+			      </div>
+			      <br>
+			      <p>or img.updatePixels(); in case you used an image instead of your canvas</p>	
+
+
+				<div id="run">
+					<h3 class="title">VOILÀ! Now run your code.</h3>
+						<div class="imgctr">
+	      					<!-- <img src="Basics/assets/full_code.PNG" alt="Full Code"> -->
+							<iframe id="myFrame" src="Basics/index.html" style="height:270px;width:340px"></iframe>
+						</div>
+				</div>
+
+
+			</div>
+		</div>
+
+	</div>
+
+
+	<!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="script.js"></script>
+</body>
+</html>
