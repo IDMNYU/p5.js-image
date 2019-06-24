@@ -35,10 +35,10 @@
 				    	<a class="nav-link active" href="index.html">Filters</a>
 				  	</li>
 				  	<li class="nav-item">
-				    	<a class="nav-link" href="">Tutorial 01</a>
+				    	<a class="nav-link" href="../Layers/index.html">Layers</a>
 				  	</li>
 				  	<li class="nav-item">
-				    	<a class="nav-link" href="">Tutorial 02</a>
+				    	<a class="nav-link" href="">Tutorial 01</a>
 				  	</li>
 				  	<li class="nav-item">
 				    	<a class="nav-link" href="">Tutorial 02</a>
@@ -100,7 +100,7 @@
     			</ol>
     			<h2 class="title" id="bw">Black & White</h2>
 			      <p>In the <a target="_blank" href="https://p5js.org/learn/color.html">RGBA</a> color system, we get greys whenever the red, green, and blue values are the same. Having that in mind, the most basic (but not exactly accurate) way of creating a greyscale filter, is to get the average rgb value of each pixel, and setting the variables r, g, and b to that number. Lets create a variable called bw and set it to the average of rgb:</p>
-			      <p>var bw = r + g + b / 3;</p>
+			      <p>var bw = ( r + g + b ) / 3;</p>
 			      <div class="imgctr2">
 				      <img src="assets/bw2_code.PNG" alt="Vertigo">
 				      <img src="assets/bw2.PNG" alt="Vertigo">
@@ -134,18 +134,21 @@
 
     			<h2 class="title" id="neg">Negative</h2>
 			      <p>Creating a negative filter is going to be the easiest one so far! All you have to do is subtract the pixels, r, g, b values from white to reverse it. This sounds harder than it actually is, so we'll just show it to you:</p>
-						<p> r = 255 - r;</p>
-						<p> g = 255 - g;</p>
-						<p> b = 255 - b;</p>
+			      <div class="imgctr2">
+				      <img src="assets/neg_code.PNG" alt="Negative Code">
+				      <img src="assets/neg.PNG" alt="Negative">
+			      </div>
+			      <br>
+			      <br>
 					<p>Just by playing around with which colors you reserse, you can create a full set of filters! Here are a couple more of examples:</p>
 			      <div class="imgctr2">
-				      <img src="assets/vertigo_code.PNG" alt="Vertigo">
+				      <img src="assets/vertigo_code.PNG" alt="Vertigo Code">
 				      <img src="assets/vertigo.PNG" alt="Vertigo">
 			      </div>
 			      <br>
 			      <br>
 			      <div class="imgctr2">
-				      <img src="assets/penelope_code.PNG" alt="Penelope">
+				      <img src="assets/penelope_code.PNG" alt="Penelope Code">
 				      <img src="assets/penelope.PNG" alt="Penelope">
 			      </div>
 			      <br>

@@ -6,9 +6,10 @@ body{
 	font-family: Arial;
 }
 
-ul {
-    padding: 0;
-    list-style-type: none;
+.description ul {
+	margin-left: 90px;
+    /*padding: 0;*/
+    /*list-style-type: none;*/
 }
 
 
@@ -93,7 +94,7 @@ li a {
 
 .wrapper {
 	display: grid;
-	grid-template-columns: 20% 80%;
+	grid-template-columns: 15% 85%;
 }
 
 .wrapper > div {
@@ -334,4 +335,11 @@ li a {
 
 .description .imgctr img{
 	width: 400px;
+}
+
+#gif{
+	position: relative;
+	top: -20px;
+	height: 400px;
+	width: auto;
 }
