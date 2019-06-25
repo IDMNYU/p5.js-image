@@ -126,7 +126,7 @@ li a {
 	border: solid;
 	border-color: #E8A0AB;
 	background-color: white;
-	font-size: 26px;
+	font-size: 30px;
 	/*width: 30%;*/
 	padding: 1%;
 	text-align: center;
@@ -140,6 +140,7 @@ li a {
 }
 
 .description{
+    font-size: 28px;
 	text-align: justify;
 	margin-left: 8px;
 	margin-right: 8px;
@@ -318,11 +319,11 @@ li a {
 /*TWO IMGS SIDE BY SIDE*/
 .description .imgctr2{
   display: inline-block;
-  margin-left: 10%;
+  margin-left: 20%;
 }
 
 .description .imgctr2 img{
-	width: 350px;
+	width: 30%;
 }
 
 /*ONE IMG*/
@@ -334,12 +335,15 @@ li a {
 }
 
 .description .imgctr img{
-	width: 400px;
+	width: 60%;
 }
 
 #gif{
 	position: relative;
-	top: -20px;
-	height: 400px;
-	width: auto;
+	top: -40px;
+	width:40%;
+	
+}
+#smallimg{
+    width: 90%;
 }

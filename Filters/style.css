@@ -126,7 +126,7 @@ li a {
 	border: solid;
 	border-color: #E8A0AB;
 	background-color: white;
-	font-size: 26px;
+	font-size: 30px;
 	/*width: 30%;*/
 	padding: 1%;
 	text-align: center;
@@ -140,6 +140,7 @@ li a {
 }
 
 .description{
+    font-size: 28px;
 	text-align: justify;
 	margin-left: 8px;
 	margin-right: 8px;
@@ -322,8 +323,8 @@ li a {
 }
 
 .description .imgctr2 img{
-	height: 350px;
-	width: auto;
+    width: 30%;
+	height: auto;
 }
 
 /*ONE IMG*/
