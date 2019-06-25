@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC>
+<html>
+
+<head>
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+	<link rel="stylesheet" href="style.css">
+
+	<link href='https://fonts.googleapis.com/css?family=Andika' rel='stylesheet'>
+
+	<link rel="shortcut icon" href="glasses2.jpg" type="image/x-icon" />
+
+	<script
+	  src="https://code.jquery.com/jquery-3.4.0.min.js"
+	  integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg="
+	  crossorigin="anonymous">
+	</script>
+
+	<title>Image Processing</title>
+</head>
+
+<body>
+
+	<div class="header">
+		<h1><a href="../index.html">Image Procesing in p5.js</a></h1>
+	</div>
+
+	<div class="wrapper">
+		<div class="bar">
+			<div class="navigation">
+				<p class="subtitle">Tutorials</p>
+				<ul class="nav flex-column">
+				 	<li class="nav-item">
+				    	<a class="nav-link" href="../Filters/index.html">Filters</a>
+				  	</li>
+				  	<li class="nav-item">
+				    	<a class="nav-link active" href="index.html">Layers</a>
+				  	</li>
+				  	<li class="nav-item">
+				    	<a class="nav-link" href="">Tutorial 01</a>
+				  	</li>
+				  	<li class="nav-item">
+				    	<a class="nav-link" href="">Tutorial 02</a>
+				  	</li>
+				  	<li class="nav-item">
+				    	<a class="nav-link" href="" tabindex="-1" aria-disabled="true">Tutorial 03</a>
+				  	</li>
+				  	<li class="nav-item">
+				    	<a class="nav-link" href="" tabindex="-1" aria-disabled="true">Tutorial 04</a>
+				  	</li>
+				</ul>
+			</div>
+
+			<br>
+
+			<div class="toggle">
+			   <nav>
+					<div class="dropdown">
+					  <button onclick="myFunction()" class="dropbtn">Projects</button>
+					  <div id="myDropdown" class="dropdown-content">
+						<ul class="nav flex-column">
+						 	<li class="nav-item">
+						    	<a class="nav-link active" href="pawair.html">PawAir</a>
+						  	</li>
+						  	<li class="nav-item">
+						    	<a class="nav-link" href="smartpet.html">Smar+Pet</a>
+						  	</li>
+						  	<li class="nav-item">
+						    	<a class="nav-link" href="women.html">Women's Archive</a>
+						  	</li>
+						  	<li class="nav-item">
+						    	<a class="nav-link" href="puppy.html">Feed the Puppy</a>
+						  	</li>
+						  	<li class="nav-item">
+						    	<a class="nav-link" href="firstimpressions.html" tabindex="-1" aria-disabled="true">First Impressions</a>
+						  	</li>
+						  	<li class="nav-item">
+						    	<a class="nav-link" href="wait.html" tabindex="-1" aria-disabled="true">Wait...</a>
+						  	</li>
+						</ul>
+					  </div>
+					</div>
+			   </nav>
+			</div>
+
+		</div>	
+
+		<div class="content">
+<!-- 			<div class="me">
+				<a href="http://aribennett.net/" target="_blank"><img class="center" src="me.PNG" alt="Illustation of Paolla" height="200" width="200" ></a>
+			</div> -->
+			<div class="description">
+				<h2 class="title">RGB Color Layers in p5.js!</h2>
+				<br>
+				<p>A step by step on how to separate an image by the maximum color in it's pixels. The end result will be a function where you can pass either 'RED', 'GREEN', or 'BLUE', as parameters and the output will be either the red, the green or the blue layer of the image used.</p>
+				<ol>
+			    	<li><a href="#loading">Image Loading</a></li>
+			    	<li><a href="#function">Color Layer Function</a></li>
+			    	<li><a href="#options">Color Options</a></li>
+			    	<li><a href="#max">Maximum Color</a></li>
+			    	<li><a href="#call">Function Call</a></li>
+    			</ol>
+
+
+    			<h2 class="title" id="loading">Image Loading</h2>
+					<p>Since we are manipulating an image, our first step is going to be using the <a target="_blank" href="https://p5js.org/reference/#/p5/loadImage">loadImage()</a> method to upload an image to your sketch and setting up that image as your canvas!</p>
+					<ul>
+						<li>Use function preload() to load the Image onto your sketch.</li>
+						<li>Set the canvas dimentions to the width and height of your image.</li>
+						<li>Previous step will make sure image is displayed at the center (since we are setting it up as the canvas itself)</li>
+					</ul>
+					<div class="imgctr2">
+						<img src="assets/loadImage.PNG" alt="Code">
+						<img src="assets/starry.PNG" alt="Starry Night">
+					</div>
+					<br>
+					<br>
+
+
+				<h2 class="title" id="function">ColorLayer( ) Function</h2>
+					<p>Let's create out ColorLayer function. This function should take in a color name as a paramenter. Since this is where we are manipulating the image, we shoud copy and paste the out Basic code from draw into our function. Everything from loadPixels to updatePixels.</p>
+					<div class="imgctr">
+						<img src="assets/colorLayer.PNG" alt="Code">
+					</div>
+					<br>
+					<br>
+
+				<h2 class="title" id="max">Maximum Color</h2>
+					<p>Our color layers rely on the color with the highest value in that pixel, so lets create a new variable called maxi and the the <a target="_blank" href="https://p5js.org/reference/#/p5/loadImage">max()</a> method to determine which of the rgb values is the highest. Since we are analysing each pixel, lets create this variable inside our double for loop.</p>
+					<div class="imgctr">
+						<img src="assets/maxColor.PNG" alt="Code">
+					</div>
+					<br>
+					<br>
+
+				<h2 class="title" id="options">Color Options</h2>
+					<p>Our color options are RED, GREEN, and BLUE, so we are going to use those as the valid paramenters for our function. Lets create 3 if statements: </p>
+					<div class="imgctr">
+						<img src="assets/colorOptions.PNG" alt="Code">
+					</div>
+					<br>
+					<br>
+					<p>If the color name is 'BLUE', we are going to keep all the pixels with max of blue and set all of the other ones to white.</p>
+					<div class="imgctr">
+						<img src="assets/blue.PNG" alt="Code">
+					</div>
+					<br>
+					<br>
+					<p>The same steps are true for 'RED' and 'GREEN'</p>
+					<div class="imgctr2">
+						<img src="assets/red.PNG" alt="Code">
+						<img src="assets/green.PNG" alt="Code">
+					</div>
+					<br>
+					<br>
+
+				<h2 class="title" id="call">Function Call</h2>
+					<p>Our function is ready to go! All we need to do is call it. Let's do that in setup. Remember to pass in a color name!</p>
+					<div class="imgctr2">
+						<img src="assets/setup.PNG" alt="Starry Night">
+						<img src="assets/maxColor.gif" alt="Blue Layer of Starry Night">
+					</div>
+					<br>
+					<br>
+
+
+
+				
+			</div>
+		</div>
+
+	</div>
+
+
+	<!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="script.js"></script>
+</body>
+</html>

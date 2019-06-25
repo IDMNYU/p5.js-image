@@ -1,0 +1,121 @@
+    
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Image Processing Basics</title>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/p5.min.js"></script>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/addons/p5.dom.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/addons/p5.sound.min.js"></script>
+    <script type="" src="sketch.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+  </head>
+  <body>
+    <h1>Image Processing Basics</h1>
+    <p>The Basics on manipulating images with p5.js</p>
+    <h3>Getting Started with p5.js Pixel Array</h3>
+    <ol>
+      <li><a href="#pixels">What is the Pixel Array?</a></li>
+      <li><a href="#density">Pixels Density</a></li>
+      <li><a href="#loading">Loading Pixels</a></li>
+      <li><a href="#loops">Double For Loop</a></li>
+      <li><a href="#index">Indexing</a></li>
+      <li><a href="#rgba">Manipulating RGBA</a></li>
+      <li><a href="#update">Update Pixels</a></li>
+    </ol>
+
+    <h3 id="pixels">PIXEL ARRAY</h3>
+      <p>There are a few programming languages that provide us with a list containing all the pixels displayed on the screen. In p5.js, this list is a flat array with the RGBA values of every pixel on the canvas. Since each pixel is described with four pieces of information, it takes up four slots on the Pixel Array.</p>
+      <p>pixels = [p1, p1, p1, p1, p2, p2, p2, p2, p3, p3, p3, p3, ...]</p>
+      <p>Those pieces of information correspond to the pixel's rgba values (red, green, blue & alpha), which range from 0 to 255.</p>
+      <p>pixels = [r, g, b, a, r, g, b, a, r, g, b, a, ...]</p>
+      <p>That means if the first pixel on the screen (upper left) is black and the second pixel (its right neighbor) is white, this is how they would be displayed on the Pixel Array:</p>
+      <p>pixels = [0, 0, 0, 255, 255, 255, 255, 255, ...]</p>
+
+      <!-- <iframe id="myFrame" src="index.html" style="height:300px;width:400px"></iframe> -->
+
+    <h3 id="density">PIXEL DENSITY</h3>
+      <p>If your computer is relatively new, chances are it has a screen that compacts a punch of pixels into one, generating higher definition. In order for our code to work, we need a more rudimentary setup. In order to do that, in your function setup(), insert:</p>
+      <p>pixelDensity(1);</p>
+      <p>This will make sure your canvas will only display one pixel per pixel. Back to the old roots.</p>
+
+    <h3 id="loading">LOADING PIXELS</h3>
+      <p>The first step to acess the Pixel Array on your p5.js sketch, is to upload it. To get a Pixel Array for your entire canvas, in the beginning of your function draw(), insert:</p>
+      <p>loadPixels();</p>
+      <p>If you don't want to mess with your whole canvas, just an image, insert:</p>
+      <p>img.loadPixels();</p>
+      <p>(img == variable name of your image)</p>
+      <p>[ATTENTION:] pixels (or img.pixels) is the name p5.js gave to our Pixel Array! You'll need to remember this later.</p>
+
+    <h3 id="loops">DOUBLE FOR LOOP</h3>
+      <p>If you are looking to manipulate your whole canvas, you are going to need a double for loop going through every column and every row of your screen. Our goal is to go thourgh the first row (x by x), move one y down, go through every x again, and move one y down again, and... you get the idea.</p>
+      <p>We are increasing x, but at a particular y level. That means our y's will be our outer for loop, and our x's are our inner loop.</p>
+      <p>
+          for (var y = 0; y < height; y++) { <br>
+          for (var x = 0; x < width; x++) {   <br>
+          } <br>
+          }
+      </p>
+
+    <h3 id="index">INDEXING</h3>
+      <p>Navigating through every pixel on the screen is hard enough, but navigating though every RGBA value of every pixel is even harder. To make your life easier, navigate through your Pixel Array 4 by 4 (since each pixel takes up 4 slots). To do that, inside your for loop initiate an index varible which will be the r value (first value) of each pixel.</p>
+      <p>var index = (x + y * width)*4;</p>
+      <p>Since our index varible correspondt to r(ed) and it moves 4 by 4, index+1 is g(reen), index+2 is b(lue), and index+3 is a(lpha).</p>
+      <p>To make your life easier, initalize there variables:</p>
+      <p>var r = pixels[index+0];</p>
+      <p>var g = pixels[index+1];</p>
+      <p>var b = pixels[index+2];</p>
+      <p>var a = pixels[index+3];</p>
+      <p>Your for loop should look like this so far:</p>
+      <p>
+        for (var y = 0; y < height; y++) { <br>
+        for (var x = 0; x < width; x++) { <br>
+          var index = (x + y * width)*4; <br>
+          var r = pixels[index+0]; <br>
+          var g = pixels[index+1]; <br>
+          var b = pixels[index+2]; <br>
+          var a = pixels[index+3];   <br>    
+        } <br>
+        } <br>
+      </p> 
+      <p>Use img.pixels[] if you used an image instead of your canvas</p>
+
+      <p>Cool, awesome, great! That's your mise en place for playing with pixels. Now all you have to do is write your recipe and let the program follow it!</p>
+      <p>The recipe we'll be sharing with you today is how to make a noisy rainbow gradient out of your canvas.</p>
+      <ol>
+        <li>Set every red value to it's x position.</li>
+        <li>Set every green value to a random number between 0 and 255.</li>
+        <li>Set every blue value to it's y position.</li>
+        <li>Set every alpha to 255</li>
+      </ol>
+      <p>Your code should look like this:</p>
+      <p>
+        for (var y = 0; y < height; y++) { <br>
+        for (var x = 0; x < width; x++) { <br>
+          var index = (x + y * width)*4; <br>
+          var r = pixels[index+0]; <br>
+          var g = pixels[index+1]; <br>
+          var b = pixels[index+2]; <br>
+          var a = pixels[index+3];   <br> 
+          r = x; <br>
+          g = random(255); <br>
+          b = y; <br>
+          a = 255; <br>     
+        } <br>
+        } <br>
+      </p> 
+      <p>Use img.pixels instead if you used an image instead of your canvas</p>
+
+    <h3 id="update">UPDATE PIXELS</h3>
+      <p>Almost done! Since you manipulated your Pixel Array, you need to update it so that your canvas can display it to you. Right before the end of the scope of your function draw(), insert this:</p>
+      <p>updatePixels();</p>
+      <p>or img.updatePixels(); in case you used an image instead of your canvas</p>
+
+    <h3 id="update">VOILÀ! Now run your code.</h3>
+      <!-- <iframe id="myFrame" src="index.html" style="height:300px;width:400px"></iframe> -->
+
+  </body>
+</html>
