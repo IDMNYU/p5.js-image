@@ -1,1 +1,213 @@
+<!DOCTYPE html PUBLIC>
+<html>
 
+<head>
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+	<link rel="stylesheet" href="style.css">
+
+	<link href='https://fonts.googleapis.com/css?family=Andika' rel='stylesheet'>
+
+	<link rel="shortcut icon" href="glasses2.jpg" type="image/x-icon" />
+
+	<script
+	  src="https://code.jquery.com/jquery-3.4.0.min.js"
+	  integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg="
+	  crossorigin="anonymous">
+	</script>
+
+	<title>Image Processing</title>
+</head>
+
+<body>
+
+	<div class="header">
+		<h1><a href="../index.html">Image Processing in p5.js</a></h1>
+	</div>
+
+	<div class="wrapper">
+		<div class="bar">
+			<div class="navigation">
+				<p class="subtitle">Tutorials</p>
+				<ul class="nav flex-column">
+				 	<li class="nav-item">
+				    	<a class="nav-link" href="../Filters/index.html">Filters</a>
+				  	</li>
+				  	<li class="nav-item">
+				    	<a class="nav-link" href="../Layers/index.html">Layers</a>
+				  	</li>
+				  	<li class="nav-item">
+				    	<a class="nav-link active" href="index.html">Animation Setup</a>
+				  	</li>
+				</ul>
+			</div>
+
+			<br>
+
+			<div class="toggle">
+			   <nav>
+					<div class="dropdown">
+					  <button onclick="myFunction()" class="dropbtn">Projects</button>
+					  <div id="myDropdown" class="dropdown-content">
+						<ul class="nav flex-column">
+						 	<li class="nav-item">
+						    	<a class="nav-link active" href="pawair.html">PawAir</a>
+						  	</li>
+						  	<li class="nav-item">
+						    	<a class="nav-link" href="smartpet.html">Smar+Pet</a>
+						  	</li>
+						  	<li class="nav-item">
+						    	<a class="nav-link" href="women.html">Women's Archive</a>
+						  	</li>
+						  	<li class="nav-item">
+						    	<a class="nav-link" href="puppy.html">Feed the Puppy</a>
+						  	</li>
+						  	<li class="nav-item">
+						    	<a class="nav-link" href="firstimpressions.html" tabindex="-1" aria-disabled="true">First Impressions</a>
+						  	</li>
+						  	<li class="nav-item">
+						    	<a class="nav-link" href="wait.html" tabindex="-1" aria-disabled="true">Wait...</a>
+						  	</li>
+						</ul>
+					  </div>
+					</div>
+			   </nav>
+			</div>
+
+		</div>	
+
+		<div class="content">
+<!-- 			<div class="me">
+				<a href="http://aribennett.net/" target="_blank"><img class="center" src="me.PNG" alt="Illustation of Paolla" height="200" width="200" ></a>
+			</div> -->
+			<div class="description">
+				<h2 class="title">Loading the Pixel Array of an Image</h2>
+					<br>
+	    			<p>In our introductory tutorial, we explained that to load the pixels from an entire canvas, you should use loadPixels(); while img.loadPixels should be used to load pixels from a specific image. However, if we are working with a single image on the canvas, knowing which method to use can be quite challenging. In this tutorial we will elaborate on when you should use each method.</p>
+					<ol>
+				    	<li><a href="#loading">loadPixels() vs. img.loadPixels()</a></li>
+				    	<li><a href="#src">Source and Destination Images</a></li>
+				    	<li><a href="#array">Image Array</a></li>
+				    	<li><a href="#loops">For Loops</a></li>
+				    	<li><a href="#neighbor">Pixel Neighborhood</a></li>
+				    	<li><a href="#copy">Copying</a></li>
+				    	<li><a href="#flip">Flipping</a></li>
+	    			</ol>
+
+	    		<h2 class="title" id="loading">loadPixels() vs. img.loadPixels()</h2>
+
+					<p>To summarize, we use img.loadPixels() when you want to manipulate pixels regardless if they are being displayed on the canvas or not. If you use loadPixels, you can only manipulate what is already displayed on your screen.</p>
+
+					<table>
+						<tr>
+							<th>loadPixels();</th>
+							<th>img.loadPixels();</th> 
+						</tr>
+						<tr>
+							<td>Blank canvas<br></td>
+							<td>Multiple images on the canvas && you only want to edit one</td>
+						</tr>
+						<tr>
+							<td>One image on the canvas<br></td>
+							<td>Multiple images on the canvas && you want to edit each one differently</td>
+						</tr>
+						<tr>
+							<td>Your sketch is motionless</td>
+							<td>Your sketch is an animation</td>
+						</tr>
+					</table>
+					<br>
+
+				<h2 class="title" id="src">Source and Destination Images</h2>
+					<p>We previously mentioned you should use img.loadPixels() when creating an animation. The reason why you should do that is because an animation is a sequence of images. To process those images and manipulate them, you need to display one while you alter the other. In order to accomplish that, you will need two images: a source and a destination.</p>
+
+					<ul>
+						<li>The source image is the one we upload.</li>
+						<li>The destination image is the one we create based on the one we uploaded.</li>
+					</ul>
+					<br>
+
+				<h2 class="title" id="array">Image Array</h2>
+					<p>In order to animate your image you need to display one while you manipulate the other. In order to accomplish that in code, we need an array that holds two images (the source and the destination). At first, we are displaying the source and manipulating the destination. Once we are done manipulating the destination image, we will then display it and start manipulating the source. In an animation, what we are relly doing is displaying different frames. To animate an image using code, we don't need thousands of frames. All we need is two images and we can flip between the two of them.</p>
+
+				<h2 class="title" id="loops">For Loops</h2>
+					<p>Our double for loop is the same as in our basic set up! The only difference is that instead of going through the width and height of the entire canvas, we are going through the width and height of our source image.</p>
+
+				<h2 class="title" id="neighbor">Pixel Neighborhood</h2>
+					<p>To animate our image, we will need to move certain pixels. Since our pixel array is a flat array of RGB values, we will need to alter our index variable. We will still need to keep track of the red value of each pixel like we did before, since it marks the beginning of a new pixel. However, it might come in handy to keep track of all of it's neightbors. That means we will need 9 variables: </p>
+					<ul>
+						<li class="color2">upper center (uc)</li>
+						<li class="color2">upper left (ul)</li>
+						<li class="color2">upper right (ur)</li>
+						<br>
+						<li class="color1">middle center (mc) *current pixel</li>
+						<li class="color1">middle left (ml)</li>
+						<li class="color1">middle right (mr)</li>
+						<br>
+						<li class="color3">lower center (lc)</li>
+						<li class="color3">lower left (lf)</li>
+						<li class="color3">lower right (lr)</li>
+					</ul>
+					<div class="img_small">
+				    	<img style="width: 300px; height:auto;" src="assets/math-11.PNG" alt="Double For Loop">
+			    	</div>
+			     	<div class="imgctr2">
+				    	<img src="assets/math-06.PNG" alt="Math">
+				    	<img src="assets/math-08.PNG" alt="Math">
+			    	</div>
+					<br>
+					<p>Here are the formulas to get the index of each neighbor:</p>
+					<ul>
+						<li class="color2">var uc = ((x-0+w)%w + w*((y-1+h)%h))*4;</li>
+						<li class="color2">var ul = ((x-1+w)%w + w*((y-1+h)%h))*4;</li>
+						<li class="color2">var ur = ((x+1+w)%w + w*((y-1+h)%h))*4;</li>
+						<br>
+						<li class="color1">var mc = ((x-0+w)%w + w*((y+0+h)%h))*4;</li>
+						<li class="color1">var ml = ((x-1+w)%w + w*((y+0+h)%h))*4;</li>
+						<li class="color1">var mr = ((x+1+w)%w + w*((y+0+h)%h))*4;</li>
+						<br>
+						<li class="color3">var lc = ((x-0+w)%w + w*((y+1+h)%h))*4;</li>
+						<li class="color3">var ll = ((x-1+w)%w + w*((y+1+h)%h))*4;</li>
+						<li class="color3">var lr = ((x+1+w)%w + w*((y+1+h)%h))*4;</li>
+					</ul>
+					<p>These formulas might look scary, but they are not that difficult to grasp once you look at them in sections. The first thing we have to pay attention to is the position of the neighbor regarding its x and y values.</p>
+					<ul>
+						<li>If you want to access the left neighbor of a pixel, for example, you know that it’s y position is the same, and it’s x position is the x of the center pixel - 1.</li>
+						<li>If you want to access the lower neighbor of a pixel, you know that it’s x position is the same, and it’s y position is the y of the center pixel + 1.</li>
+					</ul>
+					<div class="imgctr">
+				    	<img src="assets/neighbor.gif" alt="Pixel Neighborhood">
+			    	</div>
+					<p>If the center pixel is at the edge, simply plus or minus one from its x,y coordinate might get a number that is out of index. For instance, if x,y coordinate is 0,0, when we getting the center left pixel we will use -1,0, and it turns to index -4 (out of range). To prevent this happen, we define neighbors for pixels that are on the edge in a different way.</p>
+					<p>To access the left neighbor, we will need the ( x position relative to the center pixel + width) % width. This formula works because if the pixel is not at the edge, the remainder will be the number itself, not affecting the result at all. However, if the x position is higher than the width, it will prevent the number from getting out of range. Following the same logic, to access the upper neighbor, we will need the ( y position relative to the center pixel + height) % height.</p>
+					<div class="imgctr">
+				    	<img src="assets/math-09.PNG" alt="Double For Loop">
+			    	</div>
+
+				<h2 class="title" id="copy">Copying</h2>
+					<p>The process of manipulating each pixel is similar to the process we use to  manipulate each rgb value, except that instead of simply saying that:</p>
+					<p id="txtCtr">pixels [ index + 0 ] = a number</p>
+					<p>We need to copy pixels from the image we are diaplysing to the one we are manipulating. That means we need to do:</p>
+					<p id="txtCtr">dstimg.pixels [ mc ] == src.pixels[ mc ]</p>
+					<p>We then repeat that for every variable. Only after we do that, we can start manipulating values.</p>
+
+				<h2 class="title" id="flip">Flipping</h2>
+					<p>After we have made the changes which will cause the image to be animated, we can then flip the image we are manipulating with the one we are displaying and let our for loop to that repeatedly.</p>
+
+				
+			</div> <!-- description -->
+		</div> <!-- content -->
+
+	</div> <!-- wrapper -->
+
+
+	<!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="script.js"></script>
+</body>
+</html>
