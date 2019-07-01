@@ -23,7 +23,7 @@
 <body>
 
 	<div class="header">
-		<h1><a href="index.html">Image Procesing in p5.js</a></h1>
+		<h1><a href="index.html">Image Processing in p5.js</a></h1>
 	</div>
 
 	<div class="wrapper">
@@ -38,16 +38,7 @@
 				    	<a class="nav-link" href="Layers/index.html">Layers</a>
 				  	</li>
 				  	<li class="nav-item">
-				    	<a class="nav-link" href="">Tutorial 01</a>
-				  	</li>
-				  	<li class="nav-item">
-				    	<a class="nav-link" href="">Tutorial 02</a>
-				  	</li>
-				  	<li class="nav-item">
-				    	<a class="nav-link" href="" tabindex="-1" aria-disabled="true">Tutorial 03</a>
-				  	</li>
-				  	<li class="nav-item">
-				    	<a class="nav-link" href="" tabindex="-1" aria-disabled="true">Tutorial 04</a>
+				    	<a class="nav-link" href="Advanced/index.html">Animation Setup</a>
 				  	</li>
 				</ul>
 			</div>
@@ -87,10 +78,6 @@
 		</div>	
 
 		<div class="content">
-<!-- 			<div class="me">
-				<a href="http://aribennett.net/" target="_blank"><img class="center" src="me.PNG" alt="Illustation of Paolla" height="200" width="200" ></a>
-			</div> -->
-
 
 			<div class="description">
 				<h2 class="title">Getting Started with the p5.js Pixel Array</h2>
@@ -153,14 +140,19 @@
 
 
 				<h2 class="title" id="index">Indexing</h2>
-			      <p>Navigating through every pixel on the screen is hard enough, but navigating though every RGBA value of every pixel is even harder. To make your life easier, navigate through your Pixel Array 4 by 4 (since each pixel takes up 4 slots). To do that, inside your for loop initiate an index varible which will be the r value (first value) of each pixel.</p>
-			      <p>var index = (x + y * width)*4;</p>
-			      <div class="imgctr">
+			    	<p>Navigating through every pixel on the screen is hard enough, but navigating though every RGBA value of every pixel is even harder. To make your life easier, navigate through your Pixel Array 4 by 4 (since each pixel takes up 4 slots).</p>
+			    	<div class="imgctr">
 				      <img src="Basics/assets/grids-04.jpg" alt="Double For Loop">
-			      </div>
+			      	</div>
+			    	<p>To do that, inside your for loop initiate an index varible which will be the r value (first value) of each pixel. How do we get the index of the red value of a pixel form it's X/Y coordinates?</p>
+			    	<p>The index positon of the red value is 4 times the number of pixels that are in front of it.</p>
+			    	<div class="imgctr2">
+				    	<img src="Advanced/assets/math-10.PNG" alt="Double For Loop">
+				    	<img src="Advanced/assets/math-12.gif" alt="Double For Loop">
+			    	</div>
 			      <br>
-			      <br>
-			      <p>Since our index varible correspondt to r(ed) and it moves 4 by 4, index+1 is g(reen), index+2 is b(lue), and index+3 is a(lpha).</p>
+			      <p>var index = (x + y * width)*4;</p>
+			      <p>Since our index varible corresponds to r(ed) and it moves 4 by 4, index+1 is g(reen), index+2 is b(lue), and index+3 is a(lpha).</p>
 			      <p>To make your life easier, initalize there variables:</p>
 			      <p>var r = pixels[index+0];</p>
 			      <p>var g = pixels[index+1];</p>
@@ -170,7 +162,6 @@
 			      <div class="imgctr">
 				      <img src="Basics/assets/indexing.PNG" alt="Double For Loop">
 			      </div>
-			      <br>
 			      <br>
 			      <p>Use img.pixels[ ] if you used an image instead of your canvas</p>
 			      <p>Cool, awesome, great! That's your mise en place for playing with pixels. Now all you have to do is write your recipe and let the program follow it!</p>
@@ -185,7 +176,6 @@
 			      <div class="imgctr">
 				      <img src="Basics/assets/rainbow.PNG" alt="Double For Loop">
 			      </div>
-			      <br>
 			      <br>
 			      <p>Use img.pixels instead if you used an image instead of your canvas</p>
 
@@ -204,7 +194,7 @@
 					<h3 class="title">VOILÀ! Now run your code.</h3>
 						<div class="imgctr">
 	      					<!-- <img src="Basics/assets/full_code.PNG" alt="Full Code"> -->
-							<iframe id="myFrame" src="Basics/index.html" style="height:270px;width:340px"></iframe>
+							<iframe id="myFrame" src="Basics/index.html" style="height:270px;width:340px;border-style:none;"></iframe>
 						</div>
 				</div>
 
