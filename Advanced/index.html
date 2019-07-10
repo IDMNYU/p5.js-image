@@ -130,9 +130,17 @@
 
 				<h2 class="title" id="array">Image Array</h2>
 					<p>In order to animate your image you need to display one while you manipulate the other. In order to accomplish that in code, we need an array that holds two images (the source and the destination). At first, we are displaying the source and manipulating the destination. Once we are done manipulating the destination image, we will then display it and start manipulating the source. In an animation, what we are relly doing is displaying different frames. To animate an image using code, we don't need thousands of frames. All we need is two images and we can flip between the two of them.</p>
+					<div class="imgctr">
+				    	<img src="assets/imgArray.png" alt="Image Array Code">
+			    	</div>
+			    	<br>
 
 				<h2 class="title" id="loops">For Loops</h2>
-					<p>Our double for loop is the same as in our basic set up! The only difference is that instead of going through the width and height of the entire canvas, we are going through the width and height of our source image.</p>
+					<p>Our double for loop is the same as in our basic set up! The only difference is that instead of going through the width and height of the entire canvas, we are going through the width and height of our source image. In order to make your code clearer, let's put everything related to animating images in a separate function. Here, we call this function processImage()</p>
+					<div class="imgctr">
+				    	<img src="assets/forLoops.png" alt="For Loops Code">
+			    	</div>
+			    	<br>
 
 				<h2 class="title" id="neighbor">Pixel Neighborhood</h2>
 					<p>To animate our image, we will need to move certain pixels. Since our pixel array is a flat array of RGB values, we will need to alter our index variable. We will still need to keep track of the red value of each pixel like we did before, since it marks the beginning of a new pixel. However, it might come in handy to keep track of all of it's neightbors. That means we will need 9 variables: </p>
@@ -184,16 +192,26 @@
 					<div class="imgctr">
 				    	<img src="assets/math-09.png" alt="Double For Loop">
 			    	</div>
+			    	<br>
 
 				<h2 class="title" id="copy">Copying</h2>
 					<p>The process of manipulating each pixel is similar to the process we use to  manipulate each rgb value, except that instead of simply saying that:</p>
 					<p id="txtCtr">pixels [ index + 0 ] = a number</p>
-					<p>We need to copy pixels from the image we are diaplysing to the one we are manipulating. That means we need to do:</p>
+					<p>We need to copy pixels from the image we are displaying to the one we are manipulating. That means we need to do:</p>
 					<p id="txtCtr">dstimg.pixels [ mc ] == src.pixels[ mc ]</p>
-					<p>We then repeat that for every variable. Only after we do that, we can start manipulating values.</p>
+					<p>To generate motion, we cannot copy the pixel at the same position. If we want to scroll up, for example, we copy into the destination image the pixel below on the source image.</p>
+					<div class="imgctr">
+				    	<img src="assets/copying.png" alt="Copying Code">
+			    	</div>
+			    	<br>
 
 				<h2 class="title" id="flip">Flipping</h2>
 					<p>After we have made the changes which will cause the image to be animated, we can then flip the image we are manipulating with the one we are displaying and let our for loop to that repeatedly.</p>
+					<div class="imgctr">
+				    	<img src="assets/flipping.png" alt="FlippingCode">
+			    	</div>
+			    	<br>
+					<!-- <iframe src="https://www.openprocessing.org/sketch/732748/embed/" width="900" height="600"></iframe> -->
 
 				
 			</div> <!-- description -->
