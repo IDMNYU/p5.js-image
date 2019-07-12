@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC>
+<html>
+
+<head>
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+	<link rel="stylesheet" href="style.css">
+
+	<link href='https://fonts.googleapis.com/css?family=Andika' rel='stylesheet'>
+
+	<link rel="shortcut icon" href="../icon.png" type="image/x-icon" />
+
+	<script
+	  src="https://code.jquery.com/jquery-3.4.0.min.js"
+	  integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg="
+	  crossorigin="anonymous">
+	</script>
+
+	<title>Image Processing</title>
+</head>
+
+<body>
+
+	<div class="header">
+		<h1><a href="../index.html">Image Processing in p5.js</a></h1>
+	</div>
+
+	<div class="wrapper">
+		<div class="bar">
+			<div class="navigation">
+				<p class="subtitle">Tutorials</p>
+				<ul class="nav flex-column">
+					<li class="nav-item">
+				    	<a class="nav-link" href="../index.html">Basic Setup</a>
+				  	</li>
+				 	<li class="nav-item">
+				    	<a class="nav-link" href="../Filters/index.html">Filters</a>
+				  	</li>
+				  	<li class="nav-item">
+				    	<a class="nav-link" href="../Layers/index.html">Layers</a>
+				  	</li>
+				  	<li class="nav-item">
+				    	<a class="nav-link" href="../Advanced/index.html">Animation Setup</a>
+				  	</li>
+				  	<li class="nav-item">
+				    	<a class="nav-link active" href="index.html">Blur Logic</a>
+				  	</li>
+				  	<li class="nav-item">
+				    	<a class="nav-link" href="../VidBlur/index.html">Video Blur</a>
+				  	</li>
+				  	<li class="nav-item">
+				    	<a class="nav-link" href="../GOL/index.html">Game Of Life</a>
+				  	</li>
+				  	<li class="nav-item">
+				    	<a class="nav-link" href="../Edge/index.html">Edge Detection</a>
+				  	</li>
+				</ul>
+			</div>
+
+			<br>
+
+			<div class="toggle">
+			   <nav>
+					<div class="dropdown">
+					  <button onclick="myFunction()" class="dropbtn">Projects</button>
+					  <div id="myDropdown" class="dropdown-content">
+						<ul class="nav flex-column">
+						 	<li class="nav-item">
+						    	<a class="nav-link active" href="pawair.html">PawAir</a>
+						  	</li>
+						  	<li class="nav-item">
+						    	<a class="nav-link" href="smartpet.html">Smar+Pet</a>
+						  	</li>
+						  	<li class="nav-item">
+						    	<a class="nav-link" href="women.html">Women's Archive</a>
+						  	</li>
+						  	<li class="nav-item">
+						    	<a class="nav-link" href="puppy.html">Feed the Puppy</a>
+						  	</li>
+						  	<li class="nav-item">
+						    	<a class="nav-link" href="firstimpressions.html" tabindex="-1" aria-disabled="true">First Impressions</a>
+						  	</li>
+						  	<li class="nav-item">
+						    	<a class="nav-link" href="wait.html" tabindex="-1" aria-disabled="true">Wait...</a>
+						  	</li>
+						</ul>
+					  </div>
+					</div>
+			   </nav>
+			</div>
+
+		</div>	
+
+		<div class="content">
+<!-- 			<div class="me">
+				<a href="http://aribennett.net/" target="_blank"><img class="center" src="me.png" alt="Illustation of Paolla" height="200" width="200" ></a>
+			</div> -->
+			<div class="description">
+				<h2 class="title">Image Blur</h2>
+					<br>
+					<p>In this tutorial we will explain the logic behind the box blur method, which is just a simple way of blurring an image.</p>
+					<ol>
+				    	<li><a href="#idea">Main Idea</a></li>
+				    	<li><a href="#kernel">Convolution Kernel</a></li>
+				    	<li><a href="#code">Implementation</a></li>
+				    	<li><a href="#more">More Methods</a></li>
+	    			</ol>
+
+	    		<h2 class="title" id="idea">Main Idea</h2>
+	    			<p>The basic idea of bluring an image is that for each pixel, we average it with its <a target="_blank" href="https://idmnyu.github.io/p5.js-image/Advanced/index.html#neighbor">neighbors</a> and the simplest way to achieve this idea is through a method called box blur.</p>
+
+					<p class="color3">Steps:</p>
+					<ol>
+				    	<li>Retrieve the values of the center pixel (current pixel) and its 8 neighbors</li>
+				    	<li>Add them together</li>
+				    	<li>Divide by the amount of pixels we just added (here we have 9)</li>
+				    	<li>Assign the resulting value to the center pixel (the current pixel)</li>
+	    			</ol>
+	    			<br>
+
+	    		<h2 class="title" id="kernel">Convolution Kernel</h2>
+	    			<p>In a box blur each neighbor pixel weighs the same in the resulting pixel (remember that in Image Processing, we a manipulating one pixel at a time) which means that we are multiplying each pixel by 1 before adding the together. In other words, they all weigh the same. We can set the weight of each pixel inside a matrix. We call this matrix a convolution kernel.</p>
+
+					<p>Using kernels to store ratios allows you easily alter the weight distribuition later on. Different weight distribuitions will result in different blurs.</p>
+
+	    			<p class="color2">Vocabulary:</p>
+					<table>
+						<tr>
+							<td>Kernel</td>
+							<td style="width: 80%; font-size: 14pt;">In image processing, a kernel is a small matrix that includes the ratios that you multiply each pixel in the neighborhood by.</td>
+						</tr>
+						<tr>
+							<td>Convolution</td>
+							<td style="width: 80%; font-size: 14pt;">Convolution is the process of addidng each element of the image to its local neighbors, weighted by the kernel</td>
+						</tr>
+					</table>
+					<br>
+
+
+	    		<h2 class="title" id="code">Implementation</h2>
+					<p class="color3">Step by Step based on Matrix:</p>
+					<ol>
+				    	<li>The first step consists of retrieving the values within the convolution kernel</li>
+				    	<li>Adding all numbers in the kernel</li>
+				    	<li>When we divide by the amuont of pixels added, we are dividing it by the area (width * height) of the kernel</li>
+				    	<li>Assign the resulting value to the center pixel</li>
+	    			</ol>
+					<br>
+
+	    		<h2 class="title" id="more">More Methods</h2>
+	    			<p><a target="_blank" href="https://en.wikipedia.org/wiki/Kernel_(image_processing)">Different Blur Kernels</a></p>
+				
+			</div> <!-- description -->
+		</div> <!-- content -->
+
+	</div> <!-- wrapper -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="script.js"></script>
+</body>
+</html>

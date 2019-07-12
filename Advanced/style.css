@@ -380,5 +380,29 @@ table{
 	position: absolute;
 	display: inline-block;
   	margin-left: 40%;
-  	top: 2900px;
+  	top: 3000px;
 }
+
+#annoying_part {
+	display: flex;
+	
+}
+
+.pink {
+	color: #9799BA;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

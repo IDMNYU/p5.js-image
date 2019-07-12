@@ -9,7 +9,7 @@
 
 	<link href='https://fonts.googleapis.com/css?family=Andika' rel='stylesheet'>
 
-	<link rel="shortcut icon" href="glasses2.jpg" type="image/x-icon" />
+	<link rel="shortcut icon" href="../icon.png" type="image/x-icon" />
 
 	<script
 	  src="https://code.jquery.com/jquery-3.4.0.min.js"
@@ -42,6 +42,18 @@
 				  	</li>
 				  	<li class="nav-item">
 				    	<a class="nav-link active" href="index.html">Animation Setup</a>
+				  	</li>
+				  	<li class="nav-item">
+				    	<a class="nav-link" href="../Blur/index.html">Blur Logic</a>
+				  	</li>
+				  	<li class="nav-item">
+				    	<a class="nav-link" href="../VidBlur/index.html">Video Blur</a>
+				  	</li>
+				  	<li class="nav-item">
+				    	<a class="nav-link" href="../GOL/index.html">Game Of Life</a>
+				  	</li>
+				  	<li class="nav-item">
+				    	<a class="nav-link" href="../Edge/index.html">Edge Detection</a>
 				  	</li>
 				</ul>
 			</div>
@@ -87,7 +99,7 @@
 			<div class="description">
 				<h2 class="title">Loading the Pixel Array of an Image</h2>
 					<br>
-	    			<p>In our introductory tutorial, we explained that to load the pixels from an entire canvas, you should use loadPixels(); while img.loadPixels should be used to load pixels from a specific image. However, if we are working with a single image on the canvas, knowing which method to use can be quite challenging. In this tutorial we will elaborate on when you should use each method.</p>
+	    			<p>In this tutorial we will explain one way to set up your code to animate images. Although the idea behind Image Animation is fairly the same as descripbed in our Basic Setup, there are a few concepts that are important to have in mind prior to animating images. The following tutorial is by no means the ultimate way of doing Image Animation, but it is a simple way that allows you to fully inderstand the logic behind it. Here, we will discuss:</p>
 					<ol>
 				    	<li><a href="#loading">loadPixels() vs. img.loadPixels()</a></li>
 				    	<li><a href="#src">Source and Destination Images</a></li>
@@ -101,8 +113,10 @@
 	    		<h2 class="title" id="loading">loadPixels() vs. img.loadPixels()</h2>
 
 					<p>To summarize, we use img.loadPixels() when you want to manipulate pixels regardless if they are being displayed on the canvas or not. If you use loadPixels, you can only manipulate what is already displayed on your screen.</p>
-
-					<table>
+					<div class="imgctr">
+				    	<img src="assets/table.PNG" alt="Image Array Code" style="width:100%; height:auto; margin-left:-5%;">
+			    	</div>
+<!-- 					<table>
 						<tr>
 							<th>loadPixels();</th>
 							<th>img.loadPixels();</th> 
@@ -119,7 +133,7 @@
 							<td>Your sketch is motionless</td>
 							<td>Your sketch is an animation</td>
 						</tr>
-					</table>
+					</table> -->
 					<br>
 
 				<h2 class="title" id="src">Source and Destination Images</h2>
@@ -132,7 +146,19 @@
 					<br>
 
 				<h2 class="title" id="array">Image Array</h2>
-					<p>In order to animate your image you need to display one while you manipulate the other. In order to accomplish that in code, we need an array that holds two images (the source and the destination). At first, we are displaying the source and manipulating the destination. Once we are done manipulating the destination image, we will then display it and start manipulating the source. In an animation, what we are relly doing is displaying different frames. To animate an image using code, we don't need thousands of frames. All we need is two images and we can flip between the two of them.</p>
+					<p>In order to animate your image, you need to display one while you manipulate the other. To accomplish that in code, we need an array that holds two images (the source and the destination). </p>
+					<div class="imgctr">
+				    	<img src="assets/srcdst2.png" alt="Src and Dst Images">
+			    	</div>
+					<p>At first, we are displaying the source and manipulating the destination. </p>
+					<div class="imgctr">
+				    	<img src="assets/src2.png" alt="Src Image">
+			    	</div>
+					<p>Once we are done manipulating the destination image, we will then display it and start manipulating the source.</p>
+					<div class="imgctr">
+				    	<img src="assets/dst2.png" alt="Dst Image">
+			    	</div>
+					<p> In an animation, what we are really doing is displaying different frames. To animate an image using code, we don't need thousands of frames. All we need is two images and we can flip between the two of them.</p>
 					<div class="imgctr">
 				    	<img src="assets/imgArray.png" alt="Image Array Code">
 			    	</div>
@@ -147,22 +173,24 @@
 
 				<h2 class="title" id="neighbor">Pixel Neighborhood</h2>
 					<p>To animate our image, we will need to move certain pixels. Since our pixel array is a flat array of RGB values, we will need to alter our index variable. We will still need to keep track of the red value of each pixel like we did before, since it marks the beginning of a new pixel. However, it might come in handy to keep track of all of it's neightbors. That means we will need 9 variables: </p>
-					<ul>
-						<li class="color2">upper center (uc)</li>
-						<li class="color2">upper left (ul)</li>
-						<li class="color2">upper right (ur)</li>
-						<br>
-						<li class="color1">middle center (mc) *current pixel</li>
-						<li class="color1">middle left (ml)</li>
-						<li class="color1">middle right (mr)</li>
-						<br>
-						<li class="color3">lower center (lc)</li>
-						<li class="color3">lower left (lf)</li>
-						<li class="color3">lower right (lr)</li>
-					</ul>
-					<div class="img_small">
-				    	<img style="width: 300px; height:auto;" src="assets/math-11.png" alt="Double For Loop">
-			    	</div>
+					<div id = "annoying_part">
+						<ul>
+							<li class="color2">upper center (uc)</li>
+							<li class="color2">upper left (ul)</li>
+							<li class="color2">upper right (ur)</li>
+							<br>
+							<li class="color1">middle center (mc) *current pixel</li>
+							<li class="color1">middle left (ml)</li>
+							<li class="color1">middle right (mr)</li>
+							<br>
+							<li class="color3">lower center (lc)</li>
+							<li class="color3">lower left (lf)</li>
+							<li class="color3">lower right (lr)</li>
+						</ul>
+						<div class="imgctr">
+					    	<img style="width: 300px; height:auto;" src="assets/math-11.png" alt="Double For Loop">
+				    	</div>
+				    </div>
 			     	<div class="imgctr2">
 				    	<img src="assets/math-06.png" alt="Math">
 				    	<img src="assets/math-08.png" alt="Math">
