@@ -97,7 +97,7 @@
 				<a href="http://aribennett.net/" target="_blank"><img class="center" src="me.png" alt="Illustation of Paolla" height="200" width="200" ></a>
 			</div> -->
 			<div class="description">
-				<h2 class="title">Image Blur</h2>
+				<h2 class="title">Blur Logic</h2>
 					<br>
 					<p>In this tutorial we will explain the logic behind the box blur method, which is just a simple way of blurring an image.</p>
 					<ol>
@@ -142,9 +142,10 @@
 					<p class="color3">Step by Step based on Matrix:</p>
 					<ol>
 				    	<li>The first step consists of retrieving the values within the convolution kernel</li>
-				    	<li>Adding all numbers in the kernel</li>
-				    	<li>When we divide by the amuont of pixels added, we are dividing it by the area (width * height) of the kernel</li>
-				    	<li>Assign the resulting value to the center pixel</li>
+				    	<li>Add all numbers in the kernel</li>
+				    	<li>Divide by the amount of pixels added, which means we are dividing by the area (width * height) of the kernel</li>
+				    	<li>Perform the steps above three times, one for each of the RGB values</li>
+				    	<li>Assign the results to the RGB values of the center pixel</li>
 	    			</ol>
 					<br>
 
@@ -157,22 +158,26 @@
 
 	    		<h2 class="title" id="more">More Methods</h2>
 	    			<p><a target="_blank" href="https://en.wikipedia.org/wiki/Kernel_(image_processing)">Different Blur Kernels</a></p>
-				
+	    			<div class="imgctr2">
+				    	<img src="assets/matrix3x3.png" alt="Audrey">
+				    	<img src="assets/3x3.png" alt="Audrey with Blur Effect">
+			    	</div>
+				 
 			</div> <!-- description -->
+
 		</div> <!-- content -->
 
 	</div> <!-- wrapper -->
 
 
-
-
-
-
-
-
-
-
-
+<!-- 	<pre style="border: solid pink 5px">
+	    <code>A line of code</code>
+	    <code>A line of code</code>
+	    <code>A line of code</code>
+	    <code>A line of code</code>
+	    <code>A line of code</code>
+	</pre>
+ -->
 
 
 	<!-- Optional JavaScript -->
