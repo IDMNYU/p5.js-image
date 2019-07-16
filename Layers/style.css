@@ -318,7 +318,8 @@ li a {
 
 /*TWO IMGS SIDE BY SIDE*/
 .description .imgctr2{
-  display: inline-block;
+  display: flex;
+  flex-wrap: wrap;
   margin-left: 8%;
 }
 

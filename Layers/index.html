@@ -3,6 +3,7 @@
 
 <head>
 
+    <link rel="stylesheet" href="../highlight/styles/tomorrow.css">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 	<link rel="stylesheet" href="style.css">
@@ -115,8 +116,21 @@
 						<li>Previous step will make sure image is displayed at the center (since we are setting it up as the canvas itself)</li>
 					</ul>
 					<div class="imgctr2">
-						<img src="assets/loadImage.PNG" alt="Code">
-						<img src="assets/starry.PNG" alt="Starry Night">
+<pre style=" height: 400px; font-size: 14pt; overflow: auto;"><code class="javascript">
+    function preload() {
+        img = loadImage(imglist.starry);
+    }
+    
+    function setup(){
+        createCanvas(img.width, img.height);
+        pixelDensity(1);
+        image(img, 0, 0, img.width, img.height);
+    }
+    function draw(){
+    
+    }
+</code></pre>
+				<img src="assets/starry.PNG" alt="Starry Night">
 					</div>
 					<br>
 					<br>
@@ -125,7 +139,22 @@
 				<h2 class="title" id="function">ColorLayer( ) Function</h2>
 					<p>Let's create out ColorLayer function. This function should take in a color name as a paramenter. Since this is where we are manipulating the image, we shoud copy and paste the out Basic code from draw into our function. Everything from loadPixels to updatePixels.</p>
 					<div class="imgctr">
-						<img src="assets/colorLayer.PNG" alt="Code">
+<pre style=" height: 400px; font-size: 14pt; overflow: auto;"><code class="javascript">
+    function ColorLayer(){
+        loadPixels();
+        for (var y = 0; y < height; y++){
+            for (var x = 0; x < width; x++){
+                var index = (x + y * width) * 4;
+                
+                var r = pixels[index+0];
+                var g = pixels[index+1];
+                var b = pixels[index+2];
+                var a = pixels[index+3];
+                
+            }
+        }
+    }
+</code></pre>
 					</div>
 					<br>
 					<br>
@@ -134,7 +163,24 @@
 				<h2 class="title" id="max">Maximum Color</h2>
 					<p>Our color layers rely on the color with the highest value in that pixel, so lets create a new variable called maxi and the the <a target="_blank" href="https://p5js.org/reference/#/p5/loadImage">max()</a> method to determine which of the rgb values is the highest. Since we are analysing each pixel, lets create this variable inside our double for loop.</p>
 					<div class="imgctr">
-						<img src="assets/maxColor.PNG" alt="Code">
+<pre style=" height: 400px; font-size: 14pt; overflow: auto;"><code class="javascript">
+    function ColorLayer(){
+        loadPixels();
+        for (var y = 0; y < height; y++){
+            for (var x = 0; x < width; x++){
+                var index = (x + y * width) * 4;
+                
+                var r = pixels[index+0];
+                var g = pixels[index+1];
+                var b = pixels[index+2];
+                var a = pixels[index+3];
+                
+                var maxi = max([r,g,b]);
+                
+            }
+        }
+    }
+</code></pre>
 					</div>
 					<br>
 					<br>
@@ -143,20 +189,69 @@
 				<h2 class="title" id="options">Color Options</h2>
 					<p>Our color options are RED, GREEN, and BLUE, so we are going to use those as the valid paramenters for our function. Lets create 3 if statements: </p>
 					<div class="imgctr">
-						<img src="assets/colorOptions.PNG" alt="Code">
+<pre style=" height: 400px; font-size: 14pt; overflow: auto;"><code class="javascript">
+    var maxi = max([r,g,b]);
+    
+    if(color_name == "RED"){
+    
+    }
+    if(color_name == "GREEN"){
+    
+    }
+    if(color_name == "BLUE"){
+    
+    }
+</code></pre>
 					</div>
 					<br>
 					<br>
 					<p>If the color name is 'BLUE', we are going to keep all the pixels with max of blue and set all of the other ones to white.</p>
 					<div class="imgctr">
-						<img src="assets/blue.PNG" alt="Code">
+<pre style=" height: 400px; font-size: 14pt; overflow: auto;"><code class="javascript">
+    if(color_name == "BLUE"){
+        if(maxi == b){
+            pixels[index+0] = r;
+            pixels[index+1] = g;
+            pixels[index+1] = b;
+        }
+        else{
+            pixels[index+0] = 255;
+            pixels[index+1] = 255;
+            pixels[index+1] = 255;
+        }
+    }
+</code></pre>
 					</div>
 					<br>
 					<br>
 					<p>The same steps are true for 'RED' and 'GREEN'</p>
-					<div class="imgctr2">
-						<img src="assets/red.PNG" alt="Code">
-						<img src="assets/green.PNG" alt="Code">
+					<div class="imgctr2" style="margin-left: auto; margin-right: auto; width: 70%;">
+<pre style=" height: 400px; font-size: 14pt; overflow: auto; margin-right: 30px;"><code class="javascript">
+    if(color_name == "RED"){
+        if(maxi == r){
+            pixels[index+0] = r;
+            pixels[index+1] = g;
+            pixels[index+1] = b;
+        }
+        else{
+            pixels[index+0] = 255;
+            pixels[index+1] = 255;
+            pixels[index+1] = 255;
+    }
+</code></pre>
+<pre style=" height: 400px; font-size: 14pt; overflow: auto;"><code class="javascript">
+    if(color_name == "GREEN"){
+        if(maxi == g){
+            pixels[index+0] = r;
+            pixels[index+1] = g;
+            pixels[index+1] = b;
+        }
+        else{
+            pixels[index+0] = 255;
+            pixels[index+1] = 255;
+            pixels[index+1] = 255;
+    }
+</code></pre>
 					</div>
 					<br>
 					<br>
@@ -165,7 +260,22 @@
 				<h2 class="title" id="call">Function Call</h2>
 					<p>Our function is ready to go! All we need to do is call it. Let's do that in setup. Remember to pass in a color name!</p>
 					<div class="imgctr2">
-						<img src="assets/setup.PNG" alt="Starry Night">
+<pre style=" height: 400px; font-size: 14pt; overflow: auto;"><code class="javascript">
+    function preload(){
+        img = loadImage(imglist.starry);
+    }
+    
+    function setup(){
+        createCanvas(img.width, img.height);
+        pixelDensity(1);
+        image(img, 0, 0, img.width, img.height);
+        ColorLayer("BLUE");
+    }
+    
+    function draw(){
+    
+    }
+</code></pre>
 						<img src="assets/maxColor.gif" alt="Blue Layer of Starry Night">
 					</div>
 					<br>
@@ -178,7 +288,10 @@
 		</div>
 
 	</div>
-
+    
+    <!-- HIGHLIGHT.JS -->
+	<script src="../highlight/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
 
 	<!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
