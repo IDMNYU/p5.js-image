@@ -1,0 +1,87 @@
+<code> </code> /* 
+<code> </code> * We want you to have control of the blur, so we used the noLoop() method and 
+<code> </code> * the mousePressed function so that you could run the sketch step by step. 
+<code> </code> * Everytime you click your mouse the image will blur more and more. 
+<code> </code> */ 
+<code> </code> 
+<code> </code> var img; 
+<code> </code> 
+<code> </code> function preload() { 
+<code> </code> img = loadImage(imglist.audrey); // insert your own image here! 
+<code> </code> } 
+<code> </code> 
+<code> </code> function setup() { 
+<code> </code> createCanvas(img.width, img.height); 
+<code> </code> pixelDensity(1); 
+<code> </code> } 
+<code> </code> 
+<code> </code> function draw() { 
+<code> </code> background(0, 0, 0); 
+<code> </code> var k1 = [[1, 1, 1], 
+<code> </code> [1, 1, 1], 
+<code> </code> [1, 1, 1]]; 
+<code> </code> 
+<code> </code> img.loadPixels(); 
+<code> </code> 
+<code> </code> var w = img.width; 
+<code> </code> var h = img.height; 
+<code> </code> for (var x = 0; x < w; x++) { 
+<code> </code> for (var y = 0; y < h; y++) { 
+<code> </code> var ul = ((x-1+w)%w + w*((y-1+h)%h))*4; // location of the UPPER LEFT 
+<code> </code> var uc = ((x-0+w)%w + w*((y-1+h)%h))*4; // location of the UPPER CENTER 
+<code> </code> var ur = ((x+1+w)%w + w*((y-1+h)%h))*4; // location of the UPPER RIGHT 
+<code> </code> var ml = ((x-1+w)%w + w*((y+0+h)%h))*4; // location of the LEFT 
+<code> </code> var mc = ((x-0+w)%w + w*((y+0+h)%h))*4; // location of the CENTER PIXEL 
+<code> </code> var mr = ((x+1+w)%w + w*((y+0+h)%h))*4; // location of the RIGHT 
+<code> </code> var ll = ((x-1+w)%w + w*((y+1+h)%h))*4; // location of the LOWER LEFT 
+<code> </code> var lc = ((x-0+w)%w + w*((y+1+h)%h))*4; // location of the LOWER CENTER 
+<code> </code> var lr = ((x+1+w)%w + w*((y+1+h)%h))*4; // location of the LOWER RIGHT 
+<code> </code> 
+<code> </code> p0 = img.pixels[ul]*k1[0][0]; // upper left 
+<code> </code> p1 = img.pixels[uc]*k1[0][1]; // upper mid 
+<code> </code> p2 = img.pixels[ur]*k1[0][2]; // upper right 
+<code> </code> p3 = img.pixels[ml]*k1[1][0]; // left 
+<code> </code> p4 = img.pixels[mc]*k1[1][1]; // center pixel 
+<code> </code> p5 = img.pixels[mr]*k1[1][2]; // right 
+<code> </code> p6 = img.pixels[ll]*k1[2][0]; // lower left 
+<code> </code> p7 = img.pixels[lc]*k1[2][1]; // lower mid 
+<code> </code> p8 = img.pixels[lr]*k1[2][2]; // lower right 
+<code> </code> var red = (p0+p1+p2+p3+p4+p5+p6+p7+p8)/9; 
+<code> </code> 
+<code> </code> p0 = img.pixels[ul+1]*k1[0][0]; // upper left 
+<code> </code> p1 = img.pixels[uc+1]*k1[0][1]; // upper mid 
+<code> </code> p2 = img.pixels[ur+1]*k1[0][2]; // upper right 
+<code> </code> p3 = img.pixels[ml+1]*k1[1][0]; // left 
+<code> </code> p4 = img.pixels[mc+1]*k1[1][1]; // center pixel 
+<code> </code> p5 = img.pixels[mr+1]*k1[1][2]; // right 
+<code> </code> p6 = img.pixels[ll+1]*k1[2][0]; // lower left 
+<code> </code> p7 = img.pixels[lc+1]*k1[2][1]; // lower mid 
+<code> </code> p8 = img.pixels[lr+1]*k1[2][2]; // lower right 
+<code> </code> var green = (p0+p1+p2+p3+p4+p5+p6+p7+p8)/9; 
+<code> </code> 
+<code> </code> p0 = img.pixels[ul+2]*k1[0][0]; // upper left 
+<code> </code> p1 = img.pixels[uc+2]*k1[0][1]; // upper mid 
+<code> </code> p2 = img.pixels[ur+2]*k1[0][2]; // upper right 
+<code> </code> p3 = img.pixels[ml+2]*k1[1][0]; // left 
+<code> </code> p4 = img.pixels[mc+2]*k1[1][1]; // center pixel 
+<code> </code> p5 = img.pixels[mr+2]*k1[1][2]; // right 
+<code> </code> p6 = img.pixels[ll+2]*k1[2][0]; // lower left 
+<code> </code> p7 = img.pixels[lc+2]*k1[2][1]; // lower mid 
+<code> </code> p8 = img.pixels[lr+2]*k1[2][2]; // lower right 
+<code> </code> var blue = (p0+p1+p2+p3+p4+p5+p6+p7+p8)/9; 
+<code> </code> 
+<code> </code> img.pixels[mc] = red; 
+<code> </code> img.pixels[mc+1] = green; 
+<code> </code> img.pixels[mc+2] = blue; 
+<code> </code> img.pixels[mc+3] = img.pixels[lc+3]; 
+<code> </code> } 
+<code> </code> } 
+<code> </code> 
+<code> </code> img.updatePixels(); 
+<code> </code> image(img, 0, 0, img.width, img.height); 
+<code> </code> noLoop(); // we want you to have control of the blur 
+<code> </code> } 
+<code> </code> 
+<code> </code> function mousePressed() { 
+<code> </code> redraw(5); // press mouse to blur image even more! 
+<code> </code> } 
