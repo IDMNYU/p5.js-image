@@ -3,6 +3,11 @@
 
 <head>
 
+    	<!-- HIGHLIGHT.JS -->
+	<link rel="stylesheet" href="highlight/styles/tomorrow.css">
+    
+    
+    
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 	<link rel="stylesheet" href="style.css">
@@ -123,9 +128,12 @@
 				<h2 class="title" id="density">Pixel Density</h2>
 			      <p>If your computer is relatively new, chances are it has a screen that compacts a punch of pixels into one, generating higher definition. In order for our code to work, we need a more rudimentary setup. In order to do that, in your function setup(), insert:</p>
 			      <p>pixelDensity(1);</p>
-			      <div class="imgctr">
-				      <img src="Basics/assets/density.PNG" alt="Double For Loop">
-			      </div>
+<pre style="width:30%; height: 170px; font-size: 14pt; overflow: auto; margin-left: 25%;"><code class="javascript">
+    function setup(){
+        createCanvas(320,240);
+        pixelDensity(1);
+    }
+</code></pre>
 			      <p>This will make sure your canvas will only display one pixel per pixel. Back to the old roots.</p>
 			      <div class="imgctr2">
 				      <img src="Basics/assets/gradient2.PNG" alt="Double For Loop">
@@ -147,7 +155,22 @@
 				<h2 class="title" id="loops">Double For Loop</h2>
 			      <p>If you are looking to manipulate your whole canvas, you are going to need a double <a target="_blank" href="https://p5js.org/examples/control-iteration.html">for loop</a> going through every column and every row of your screen. Our goal is to go thourgh the first row (x by x), move one y down, go through every x again, and move one y down again, and... you get the idea.</p>
 			      <div class="imgctr2">
-				      <img src="Basics/assets/loops.PNG" alt="Double For Loop">
+<pre style=" width:40%; height: 300px; font-size: 12pt; overflow: auto; margin-top: 90px;"><code class="javascript">
+    function setup(){
+        createCanvas(320,240);
+        pixelDensity(1);
+    }
+    
+    function draw(){
+        background(255);
+        loadPixels();
+        for(var y = 0; y < height; y++) {
+            for(var x = 0; x < width; x++){
+            
+            }
+        }
+    }
+</code></pre>
 				      <img id="gif" src="Basics/assets/doubleLoop.gif" alt="Gif">
 			      </div>
 			      <br>
@@ -169,14 +192,28 @@
 			      <br>
 			      <p>var index = (x + y * width)*4;</p>
 			      <p>Since our index varible corresponds to r(ed) and it moves 4 by 4, index+1 is g(reen), index+2 is b(lue), and index+3 is a(lpha).</p>
-			      <p>To make your life easier, initalize there variables:</p>
-			      <p>var r = pixels[index+0];</p>
-			      <p>var g = pixels[index+1];</p>
-			      <p>var b = pixels[index+2];</p>
-			      <p>var a = pixels[index+3];</p>
+			      <p>red = pixels[index+0];</p>
+			      <p>green = pixels[index+1];</p>
+			      <p>blue = pixels[index+2];</p>
+			      <p>alpha = pixels[index+3];</p>
 			      <p>Your for loop should look like this so far:</p>
 			      <div class="imgctr">
-				      <img src="Basics/assets/indexing.PNG" alt="Double For Loop">
+<pre style=" width:80%; height: 350px; font-size: 12pt; overflow: auto; margin-top: 0px;"><code class="javascript">
+    function draw() {
+      background(51);
+
+      loadPixels();
+      for (var y = 0; y < height; y++) {
+        for (var x = 0; x < width; x++) {
+          var index = (x + y * width)*4;
+          pixels[index+0] = ?;
+          pixels[index+1] = ?;
+          pixels[index+2] = ?;
+          pixels[index+3] = ?;      
+        }
+      }
+    }
+</code></pre>
 			      </div>
 			      <br>
 			      <p>Use img.pixels[ ] if you used an image instead of your canvas</p>
@@ -190,7 +227,22 @@
 			      </ul>
 			      <p>Your code should look like this:</p>
 			      <div class="imgctr">
-				      <img src="Basics/assets/rainbow.PNG" alt="Double For Loop">
+<pre style=" width:80%; height: 350px; font-size: 12pt; overflow: auto; margin-top: 0px;"><code class="javascript">
+    function draw() {
+      background(51);
+
+      loadPixels();
+      for (var y = 0; y < height; y++) {
+        for (var x = 0; x < width; x++) {
+          var index = (x + y * width)*4;
+          pixels[index+0] = x;
+          pixels[index+1] = random(255);
+          pixels[index+2] = y;
+          pixels[index+3] = 255;      
+        }
+      }
+    }
+</code></pre>
 			      </div>
 			      <br>
 			      <p>Use img.pixels instead if you used an image instead of your canvas</p>
@@ -200,7 +252,23 @@
 			      <p>Almost done! Since you manipulated your Pixel Array, you need to update it so that your canvas can display it to you. Right before the end of the scope of your function draw(), insert this:</p>
 			      <p>updatePixels();</p>
 			      <div class="imgctr">
-				      <img src="Basics/assets/full_code.PNG" alt="Double For Loop">
+<pre style=" width:100%; height: 400px; font-size: 12pt; overflow: auto; margin-top: 0px;"><code class="javascript">
+    function draw() {
+      background(51);
+
+      loadPixels();
+      for (var y = 0; y < height; y++) {
+        for (var x = 0; x < width; x++) {
+          var index = (x + y * width)*4;
+          pixels[index+0] = x;
+          pixels[index+1] = random(255);
+          pixels[index+2] = y;
+          pixels[index+3] = 255;      
+        }
+      }
+      updatePixels();
+    }
+</code></pre>
 			      </div>
 			      <br>
 			      <p>or img.updatePixels(); in case you used an image instead of your canvas</p>	
@@ -222,6 +290,10 @@
 
 
 	<!-- Optional JavaScript -->
+    
+    <!-- HIGHLIGHT.JS -->
+	<script src="highlight/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
