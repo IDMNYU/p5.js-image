@@ -2,6 +2,8 @@
 <html>
 
 <head>
+	<!-- HIGHLIGHT.JS -->
+	<link rel="stylesheet" href="../highlight/styles/tomorrow.css">
 
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
@@ -50,9 +52,6 @@
 				    	<a class="nav-link" href="../VidBlur/index.html">Video Blur</a>
 				  	</li>
 				  	<li class="nav-item">
-				    	<a class="nav-link" href="../GOL/index.html">Game Of Life</a>
-				  	</li>
-				  	<li class="nav-item">
 				    	<a class="nav-link active" href="index.html">Edge Detection</a>
 				  	</li>
 				</ul>
@@ -97,21 +96,300 @@
 				<a href="http://aribennett.net/" target="_blank"><img class="center" src="me.png" alt="Illustation of Paolla" height="200" width="200" ></a>
 			</div> -->
 			<div class="description">
-				<h2 class="title">Coming Soon!</h2>
-					<br>
+				<h2 class="title">Edge Detection</h2>
+					<p>Edge detection is an image processing technique for finding the boundaries of objects within images and it's implementation is a type of Kernel Convolution. It consists of trying to find the regions where the image has a sharp change in intensity. A high value indicates a steep change and a low value indicates shallow change. A very common way to perform this is by using the Sobel Operator. In this tutorial we will explain the logic behind Detecting Edges in an image. </p>
+				    <div class="imgctr2">
+					    <img id="smallimg" src="assets/budapest.jpg" alt="Budapest Hotel">
+					    <img id="smallimg" src="assets/sobel.png" alt="Budapest Hotel Sobel">
+				    </div>
+				    <br>
+				    <br>
+					<p>For a more detailed explanation of what Kernel Convolution is, read our <a target="_blank" href="https://idmnyu.github.io/p5.js-image/Blur/index.html">Blur Logic tutorial</a>. We highly recommend that you have a look at it before moving forward!</p>
 					<ol>
-				    	<li><a href="#capture"></a></li>
-				    	<li><a href="#copy"></a></li>
-				    	<li><a href="#blur"></a></li>
-				    	<li><a href="#display"></a></li>
+				    	<li><a href="#logic">Logic Behind Edge Detection</a></li>
+				    	<li><a href="#x">X-Direction Kernel</a></li>
+				    	<li><a href="#y">Y-Direction Kernel</a></li>
+				    	<li><a href="#sobel">Sobel Operator</a></li>
 	    			</ol>
+					<br>
 
+
+		    	<h2 class="title" id="logic">Logic Behind Edge Detection</h2>
+		    		<p>The basic idea is to approximate the change in light intensity. We do this by comparing the value of pixels on the right side and left side (x-direction kernel), followed by comparing the upper side and lower side (y-direction kernel). We use two 3x3 kernels, one for each x and y direction.</p>
+		    		<p>The change in light intensity is the gradient magnitude of the edge, which can be computed by the following formula:</p>
+		    		<p style="text-align: center; background-color: white; width: 30%; margin-left: auto; margin-right: auto; padding: 5px;">| G | = srt ( (Gx*Gx) + (Gy*Gy) )</p>
+		    		<p style="font-size: 14pt;">Gx = Gradient in x-direction</p>
+		    		<p style="font-size: 14pt;">Gy = Gradient in y-direction</p>
+		    		<br>
+
+
+		    	<h2 class="title" id="x">X-Direction Kernel</h2>
+		    		<p>The X-Direction Kernel will compute the vertically oriented edges. We preserve the center pixels and try to find the difference between the left and right regions. The kernel for x-direction has negative numbers on the left side and positive numbers on the right side. </p>
+<!-- 				    <div class="imgctr">
+					    <img src="GXkernel.jpg" alt="GX kernel">
+				    </div> -->
+				    <div class="imgctr2">
+					    <img id="smallimg" src="assets/budapest.jpg" alt="Budapest Hotel">
+					    <img id="smallimg" src="assets/gx.png" alt="Budapest Hotel Sobel">
+				    </div>
+				    <br>
+		    		<br>
+<pre style="width:78%; height: 500px; font-size: 10pt; overflow: auto; margin-left: 12%;"><code class="javascript">
+var srcimg, dstimg;
+
+function preload() {
+  srcimg = loadImage(imglist.bosch);
+}
+
+function setup() {
+  createCanvas(srcimg.width, srcimg.height);
+	pixelDensity(1);
+	dstimg = createImage(srcimg.width, srcimg.height);
+}
+
+function draw() {
+	var k1 = [[-1, 0, 1],
+			  [-2, 0, 2],
+			  [-1, 0, 1]];
+	var k2 = [[-1, -2, -1],
+			   [0, 0, 0],
+			   [1, 2, 1]];
+	
+	srcimg.loadPixels();
+	dstimg.loadPixels();
+	
+	var w = srcimg.width;
+	var h = srcimg.height;
+	for (var x = 0; x < w; x++) {
+    	for (var y = 0; y < h; y++) {
+		
+			// INDEX POSITION IN PIXEL LIST
+			var ul = ((x-1+w)%w + w*((y-1+h)%h))*4; // location of the UPPER LEFT
+			var uc = ((x-0+w)%w + w*((y-1+h)%h))*4; // location of the UPPER MID
+			var ur = ((x+1+w)%w + w*((y-1+h)%h))*4; // location of the UPPER RIGHT
+			var ml = ((x-1+w)%w + w*((y+0+h)%h))*4; // location of the LEFT
+			var mc = ((x-0+w)%w + w*((y+0+h)%h))*4; // location of the CENTER PIXEL
+			var mr = ((x+1+w)%w + w*((y+0+h)%h))*4; // location of the RIGHT
+			var ll = ((x-1+w)%w + w*((y+1+h)%h))*4; // location of the LOWER LEFT
+			var lc = ((x-0+w)%w + w*((y+1+h)%h))*4; // location of the LOWER MID
+			var lr = ((x+1+w)%w + w*((y+1+h)%h))*4; // location of the LOWER RIGHT
+
+			// green channel only
+			var p0 = srcimg.pixels[ul+1]*k1[0][0]; // upper left
+			var p1 = srcimg.pixels[uc+1]*k1[0][1]; // upper mid
+			var p2 = srcimg.pixels[ur+1]*k1[0][2]; // upper right
+			var p3 = srcimg.pixels[ml+1]*k1[1][0]; // left
+			var p4 = srcimg.pixels[mc+1]*k1[1][1]; // center pixel
+			var p5 = srcimg.pixels[mr+1]*k1[1][2]; // right
+			var p6 = srcimg.pixels[ll+1]*k1[2][0]; // lower left
+			var p7 = srcimg.pixels[lc+1]*k1[2][1]; // lower mid
+			var p8 = srcimg.pixels[lr+1]*k1[2][2]; // lower right
+			var r1 = p0+p1+p2+p3+p4+p5+p6+p7+p8;
+
+			var result = map(r1, -1000, 1000, 0, 255);
+			
+			// write pixels into destination image:
+			dstimg.pixels[mc] = result; 
+			dstimg.pixels[mc+1] = result; 
+			dstimg.pixels[mc+2] = result; 
+			dstimg.pixels[mc+3] = 255; 	
+    	}
+  	}	
+	// update and display the pixel buffer
+	dstimg.updatePixels();
+	image(dstimg, 0, 0, dstimg.width, dstimg.height);
+}
+</code></pre>
+<br>
+<br>
+
+		    	<h2 class="title" id="y">Y-Direction Kernel</h2>
+		    		<p>The Y-Direction Kernel will compute the horizontally oriented edges. We preserve the center pixels and try to find the difference between the upper and lower regions. The kernel for y-direction has negative numbers at the top and positive numbers at the bottom.</p>
+<!-- 				    <div class="imgctr">
+					    <img src="GYkernel.jpg" alt="GY kernel">
+				    </div> -->
+				    <div class="imgctr2">
+					    <img id="smallimg" src="assets/budapest.jpg" alt="Budapest Hotel">
+					    <img id="smallimg" src="assets/gy.png" alt="Budapest Hotel Sobel">
+				    </div>
+		    		<br>
+		    		<br>
+<pre style="width:78%; height: 500px; font-size: 10pt; overflow: auto; margin-left: 12%;"><code class="javascript">
+var srcimg, dstimg;
+
+function preload() {
+  srcimg = loadImage(imglist.bosch);
+}
+
+function setup() {
+  createCanvas(srcimg.width, srcimg.height);
+	pixelDensity(1);
+	dstimg = createImage(srcimg.width, srcimg.height);
+}
+
+function draw() {
+	var k1 = [[-1, 0, 1],
+						[-2, 0, 2],
+						[-1, 0, 1]];
+	var k2 = [[-1, -2, -1],
+						 [0, 0, 0],
+						 [1, 2, 1]];
+	
+	srcimg.loadPixels();
+	dstimg.loadPixels();
+	
+	var w = srcimg.width;
+	var h = srcimg.height;
+	for (var x = 0; x < w; x++) {
+    	for (var y = 0; y < h; y++) {
+
+			// INDEX POSITION IN PIXEL LIST
+			var ul = ((x-1+w)%w + w*((y-1+h)%h))*4; // location of the UPPER LEFT
+			var uc = ((x-0+w)%w + w*((y-1+h)%h))*4; // location of the UPPER MID
+			var ur = ((x+1+w)%w + w*((y-1+h)%h))*4; // location of the UPPER RIGHT
+			var ml = ((x-1+w)%w + w*((y+0+h)%h))*4; // location of the LEFT
+			var mc = ((x-0+w)%w + w*((y+0+h)%h))*4; // location of the CENTER PIXEL
+			var mr = ((x+1+w)%w + w*((y+0+h)%h))*4; // location of the RIGHT
+			var ll = ((x-1+w)%w + w*((y+1+h)%h))*4; // location of the LOWER LEFT
+			var lc = ((x-0+w)%w + w*((y+1+h)%h))*4; // location of the LOWER MID
+			var lr = ((x+1+w)%w + w*((y+1+h)%h))*4; // location of the LOWER RIGHT
+
+			// green channel only
+			var p0 = srcimg.pixels[ul+1]*k2[0][0]; // upper left
+			var p1 = srcimg.pixels[uc+1]*k2[0][1]; // upper mid
+			var p2 = srcimg.pixels[ur+1]*k2[0][2]; // upper right
+			var p3 = srcimg.pixels[ml+1]*k2[1][0]; // left
+			var p4 = srcimg.pixels[mc+1]*k2[1][1]; // center pixel
+			var p5 = srcimg.pixels[mr+1]*k2[1][2]; // right
+			var p6 = srcimg.pixels[ll+1]*k2[2][0]; // lower left
+			var p7 = srcimg.pixels[lc+1]*k2[2][1]; // lower mid
+			var p8 = srcimg.pixels[lr+1]*k2[2][2]; // lower right
+			var r2 = p0+p1+p2+p3+p4+p5+p6+p7+p8;
+
+			var result = map(r2, -1000, 1000, 0, 255);
+
+			// write pixels into destination image:
+			dstimg.pixels[mc] = result; 
+			dstimg.pixels[mc+1] = result; 
+			dstimg.pixels[mc+2] = result; 
+			dstimg.pixels[mc+3] = 255; 		
+    	}
+  	}	
+	// update and display the pixel buffer
+	dstimg.updatePixels(); 
+	image(dstimg, 0, 0, dstimg.width, dstimg.height);
+}
+</code></pre>
+<br>
+<br>
+
+
+		    	<h2 class="title" id="sobel">Sobel Operator</h2>
+				    <div class="imgctr2">
+					    <img id="smallimg" src="assets/budapest.jpg" alt="Budapest Hotel">
+					    <img id="smallimg" src="assets/gy.png" alt="Budapest Hotel Sobel">
+				    </div>
+		    		<br>
+		    		<br>
+<pre style="width:78%; height: 500px; font-size: 10pt; overflow: auto; margin-left: 12%;"><code class="javascript">
+// convolution kernel example
+
+var srcimg, dstimg;
+
+function preload() {
+  srcimg = loadImage(imglist.budapest); // Load the image
+}
+
+function setup() {
+  createCanvas(srcimg.width, srcimg.height);
+	pixelDensity(1);
+	dstimg = createImage(srcimg.width, srcimg.height);
+}
+
+function draw() {
+	processImage(srcimg, dstimg);
+	image(dstimg, 0, 0, dstimg.width, dstimg.height);
+	// noLoop();
+}
+
+function processImage(_srcimg, _dstimg, _kernel)
+{
+	_srcimg.filter(GRAY);
+	var k1 = [[-1, 0, 1],
+							[-2, 0, 2],
+							[-1, 0, 1]];
+	var k2 = [[-1, -2, -1],
+							[0, 0, 0],
+							[1, 2, 1]];
+	_srcimg.loadPixels(); // convert the entire canvas to a pixel buffer
+	_dstimg.loadPixels(); // convert the entire canvas to a pixel buffer
+	
+	var w = _srcimg.width;
+	var h = _srcimg.height;
+	for (var x = 0; x < w; x++) {
+    for (var y = 0; y < h; y++) {
+		
+			// INDEX POSITION IN PIXEL LIST
+			var ul = ((x-1+w)%w + w*((y-1+h)%h))*4; // location of the UPPER LEFT
+			var uc = ((x-0+w)%w + w*((y-1+h)%h))*4; // location of the UPPER MID
+			var ur = ((x+1+w)%w + w*((y-1+h)%h))*4; // location of the UPPER RIGHT
+			var ml = ((x-1+w)%w + w*((y+0+h)%h))*4; // location of the LEFT
+			var mc = ((x-0+w)%w + w*((y+0+h)%h))*4; // location of the CENTER PIXEL
+			var mr = ((x+1+w)%w + w*((y+0+h)%h))*4; // location of the RIGHT
+			var ll = ((x-1+w)%w + w*((y+1+h)%h))*4; // location of the LOWER LEFT
+			var lc = ((x-0+w)%w + w*((y+1+h)%h))*4; // location of the LOWER MID
+			var lr = ((x+1+w)%w + w*((y+1+h)%h))*4; // location of the LOWER RIGHT
+			
+			// green channel only
+      var p0 = _srcimg.pixels[ul+1]*k1[0][0]; // upper left
+      var p1 = _srcimg.pixels[uc+1]*k1[0][1]; // upper mid
+      var p2 = _srcimg.pixels[ur+1]*k1[0][2]; // upper right
+      var p3 = _srcimg.pixels[ml+1]*k1[1][0]; // left
+      var p4 = _srcimg.pixels[mc+1]*k1[1][1]; // center pixel
+      var p5 = _srcimg.pixels[mr+1]*k1[1][2]; // right
+      var p6 = _srcimg.pixels[ll+1]*k1[2][0]; // lower left
+      var p7 = _srcimg.pixels[lc+1]*k1[2][1]; // lower mid
+      var p8 = _srcimg.pixels[lr+1]*k1[2][2]; // lower right
+      var r1 = p0+p1+p2+p3+p4+p5+p6+p7+p8; 
+			
+			var p0 = _srcimg.pixels[ul+1]*k2[0][0]; // upper left
+      var p1 = _srcimg.pixels[uc+1]*k2[0][1]; // upper mid
+      var p2 = _srcimg.pixels[ur+1]*k2[0][2]; // upper right
+      var p3 = _srcimg.pixels[ml+1]*k2[1][0]; // left
+      var p4 = _srcimg.pixels[mc+1]*k2[1][1]; // center pixel
+      var p5 = _srcimg.pixels[mr+1]*k2[1][2]; // right
+      var p6 = _srcimg.pixels[ll+1]*k2[2][0]; // lower left
+      var p7 = _srcimg.pixels[lc+1]*k2[2][1]; // lower mid
+      var p8 = _srcimg.pixels[lr+1]*k2[2][2]; // lower right
+      var r2 = p0+p1+p2+p3+p4+p5+p6+p7+p8; 
+      
+			var result = map(sqrt(r1*r1+r2*r2),0,1414,0,255);
+			
+      // write pixels into destination image:
+    	_dstimg.pixels[mc] = result; 
+    	_dstimg.pixels[mc+1] = result; 
+    	_dstimg.pixels[mc+2] = result; 
+    	_dstimg.pixels[mc+3] = 255; 
+			
+    }
+  }	
+	
+	_dstimg.updatePixels(); // update and display the pixel buffer
+
+}
+</code></pre>
+<br>
+<br>
 				
 			</div> <!-- description -->
 		</div> <!-- content -->
 
 	</div> <!-- wrapper -->
 
+
+	<!-- HIGHLIGHT.JS -->
+	<script src="../highlight/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
 
 	<!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
