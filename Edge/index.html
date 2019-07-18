@@ -117,23 +117,27 @@
 		    	<h2 class="title" id="logic">Logic Behind Edge Detection</h2>
 		    		<p>The basic idea is to approximate the change in light intensity. We do this by comparing the value of pixels on the right side and left side (x-direction kernel), followed by comparing the upper side and lower side (y-direction kernel). We use two 3x3 kernels, one for each x and y direction.</p>
 		    		<p>The change in light intensity is the gradient magnitude of the edge, which can be computed by the following formula:</p>
-		    		<p style="text-align: center; background-color: white; width: 30%; margin-left: auto; margin-right: auto; padding: 5px;">| G | = srt ( (Gx*Gx) + (Gy*Gy) )</p>
+		    		<p style="text-align: center; background-color: white; width: 35%; margin-left: auto; margin-right: auto; padding: 5px;">| G | = sqrt ( (Gx*Gx) + (Gy*Gy) )</p>
 		    		<p style="font-size: 14pt;">Gx = Gradient in x-direction</p>
 		    		<p style="font-size: 14pt;">Gy = Gradient in y-direction</p>
 		    		<br>
 
 
 		    	<h2 class="title" id="x">X-Direction Kernel</h2>
-		    		<p>The X-Direction Kernel will compute the vertically oriented edges. We preserve the center pixels and try to find the difference between the left and right regions. The kernel for x-direction has negative numbers on the left side and positive numbers on the right side. </p>
-<!-- 				    <div class="imgctr">
-					    <img src="GXkernel.jpg" alt="GX kernel">
-				    </div> -->
+		    		<p>The X-Direction Kernel will compute the vertically oriented edges. We preserve the center pixels and try to find the difference between the left and right regions. The kernel for x-direction has negative numbers on the left side and positive numbers on the right side.</p>
+				    <div class="imgctr2">
+					    <img id="smallimg" src="assets/visual.png" alt="Visual">
+					    <img id="smallimg" src="assets/gx_visual.png" alt="Gx Visual">
+				    </div>
+					<br>
+					<br>
+		    		<p>Our program will multiply the current pixel and its neighbors by the numbers on the matrix and add them. This will be repeated for every pixel on the canvas, consequently checking for all <span class="color2">vertical edges</span> the image contains. For the sake of simplicity, on the example below we only use the green channel of each pixel and set each channel to the calculated sum. The sum could result in either negative or positive value. We stretch those results to values between 0 and 255 using the <a target="_blank" href="https://p5js.org/reference/#/p5/map">map() method</a> and just output it into a greyscale image.</p>
 				    <div class="imgctr2">
 					    <img id="smallimg" src="assets/budapest.jpg" alt="Budapest Hotel">
 					    <img id="smallimg" src="assets/gx.png" alt="Budapest Hotel Sobel">
 				    </div>
-				    <br>
-		    		<br>
+					<br>
+					<br>
 <pre style="width:78%; height: 500px; font-size: 10pt; overflow: auto; margin-left: 12%;"><code class="javascript">
 var srcimg, dstimg;
 
@@ -148,12 +152,10 @@ function setup() {
 }
 
 function draw() {
+	// X-Direction Kernel
 	var k1 = [[-1, 0, 1],
-			  [-2, 0, 2],
-			  [-1, 0, 1]];
-	var k2 = [[-1, -2, -1],
-			   [0, 0, 0],
-			   [1, 2, 1]];
+		  [-2, 0, 2],
+		  [-1, 0, 1]];
 	
 	srcimg.loadPixels();
 	dstimg.loadPixels();
@@ -186,6 +188,7 @@ function draw() {
 			var p8 = srcimg.pixels[lr+1]*k1[2][2]; // lower right
 			var r1 = p0+p1+p2+p3+p4+p5+p6+p7+p8;
 
+			// -1000 is the minimum value the sum could result in and 1000 is the maximum
 			var result = map(r1, -1000, 1000, 0, 255);
 			
 			// write pixels into destination image:
@@ -201,13 +204,23 @@ function draw() {
 }
 </code></pre>
 <br>
+<p>Another way of doing this would be to o use the function <a target="_blank" href="https://p5js.org/reference/#/p5/filter">image.filter(GRAY)</a> at the beginning and then perfom the same calculations for each channel (red, green, and blue) and writing the results into the proper channels on the destination image. In this case, we need ne image to be black and white in the beginning to make sure our edges are all the same instead of containing multiple colors.</p>
+<div class="imgctr2" style="margin-left: 20%;">
+    <img id="smallimg" src="assets/gxZoom.png" style="width: 30%;" alt="Budapest Hotel">
+    <img id="smallimg" src="assets/GxColorZoom.png" style="width: 30%;" alt="Budapest Hotel Sobel">
+</div>
+<br>
 <br>
 
 		    	<h2 class="title" id="y">Y-Direction Kernel</h2>
-		    		<p>The Y-Direction Kernel will compute the horizontally oriented edges. We preserve the center pixels and try to find the difference between the upper and lower regions. The kernel for y-direction has negative numbers at the top and positive numbers at the bottom.</p>
-<!-- 				    <div class="imgctr">
-					    <img src="GYkernel.jpg" alt="GY kernel">
-				    </div> -->
+		    		<p>The Y-Direction Kernel differs form the X-Direction Kernel in that it will compute the horizontally oriented edges. Again, we preserve the center pixels and try to find the difference between the upper and lower regions. The kernel for y-direction has negative numbers at the top and positive numbers at the bottom.</p>
+				    <div class="imgctr2">
+					    <img id="smallimg" src="assets/visual.png" alt="Visual">
+					    <img id="smallimg" src="assets/gy_visual.png" alt="Gy Visual">
+				    </div>
+					<br>
+					<br>
+		    		<p>Our program will multiply the current pixel and its neighbors by the numbers on the matrix and add them. This will be repeated for every pixel on the canvas, consequently checking for all <span class="color2">horizontal edges</span> the image contains. For the sake of simplicity, on the example below we only use the green channel of each pixel and set each channel to the calculated sum. The sum could result in either negative or positive value. We stretch those results to values between 0 and 255 using the <a target="_blank" href="https://p5js.org/reference/#/p5/map">map() method</a> and just output it into a greyscale image.</p>
 				    <div class="imgctr2">
 					    <img id="smallimg" src="assets/budapest.jpg" alt="Budapest Hotel">
 					    <img id="smallimg" src="assets/gy.png" alt="Budapest Hotel Sobel">
@@ -228,12 +241,10 @@ function setup() {
 }
 
 function draw() {
-	var k1 = [[-1, 0, 1],
-						[-2, 0, 2],
-						[-1, 0, 1]];
+	// Y-Direction Kernel
 	var k2 = [[-1, -2, -1],
-						 [0, 0, 0],
-						 [1, 2, 1]];
+		   [0, 0, 0],
+	           [1, 2, 1]];
 	
 	srcimg.loadPixels();
 	dstimg.loadPixels();
@@ -266,6 +277,7 @@ function draw() {
 			var p8 = srcimg.pixels[lr+1]*k2[2][2]; // lower right
 			var r2 = p0+p1+p2+p3+p4+p5+p6+p7+p8;
 
+			// -1000 is the minimum value the sum could result in and 1000 is the maximum
 			var result = map(r2, -1000, 1000, 0, 255);
 
 			// write pixels into destination image:
@@ -281,13 +293,26 @@ function draw() {
 }
 </code></pre>
 <br>
+<p>Another way of doing this would be to o use the function <a target="_blank" href="https://p5js.org/reference/#/p5/filter">image.filter(GRAY)</a> at the beginning and then perfom the same calculations for each channel (red, green, and blue) and writing the results into the proper channels on the destination image. In this case, we need ne image to be black and white in the beginning to make sure our edges are all the same instead of containing multiple colors.</p>
+<div class="imgctr2" style="margin-left: 20%;">
+    <img id="smallimg" src="assets/gyZoom.png" style="width: 30%;" alt="Budapest Hotel">
+    <img id="smallimg" src="assets/GyColorZoom.png" style="width: 30%;" alt="Budapest Hotel Sobel">
+</div>
+<br>
 <br>
 
 
 		    	<h2 class="title" id="sobel">Sobel Operator</h2>
+		    		<p>The Sobel Operator is going to check, each pixel for both horizontal and vertical edges, sum the results for x and y separately, and then take the square root of Gx squared + Gy squared. In this situation, all values will be positive, but for more accuracy we should still map the values so we get the correct insensity of each line in our image. If we don't map it, all of our edges will be opaque white.</p>
+		    		<p style="text-align: center; background-color: white; width: 50%; margin-left: auto; margin-right: auto; padding: 5px;">| G | = map( sqrt (Gx*Gx+Gy*Gy), 0, 1414, 0, 255 );</p>
+		    		<p style="font-size: 14pt;">Gx = Gradient in x-direction</p>
+		    		<p style="font-size: 14pt;">Gy = Gradient in y-direction</p>
+		    		<p style="font-size: 14pt;">0 = minumim possible result</p>
+		    		<p style="font-size: 14pt;">1414 = maximum possible result</p>
+		    		<br>
 				    <div class="imgctr2">
 					    <img id="smallimg" src="assets/budapest.jpg" alt="Budapest Hotel">
-					    <img id="smallimg" src="assets/gy.png" alt="Budapest Hotel Sobel">
+					    <img id="smallimg" src="assets/sobel.png" alt="Budapest Hotel Sobel">
 				    </div>
 		    		<br>
 		    		<br>
@@ -309,7 +334,6 @@ function setup() {
 function draw() {
 	processImage(srcimg, dstimg);
 	image(dstimg, 0, 0, dstimg.width, dstimg.height);
-	// noLoop();
 }
 
 function processImage(_srcimg, _dstimg, _kernel)
@@ -327,7 +351,7 @@ function processImage(_srcimg, _dstimg, _kernel)
 	var w = _srcimg.width;
 	var h = _srcimg.height;
 	for (var x = 0; x < w; x++) {
-    for (var y = 0; y < h; y++) {
+    	for (var y = 0; y < h; y++) {
 		
 			// INDEX POSITION IN PIXEL LIST
 			var ul = ((x-1+w)%w + w*((y-1+h)%h))*4; // location of the UPPER LEFT
@@ -341,38 +365,39 @@ function processImage(_srcimg, _dstimg, _kernel)
 			var lr = ((x+1+w)%w + w*((y+1+h)%h))*4; // location of the LOWER RIGHT
 			
 			// green channel only
-      var p0 = _srcimg.pixels[ul+1]*k1[0][0]; // upper left
-      var p1 = _srcimg.pixels[uc+1]*k1[0][1]; // upper mid
-      var p2 = _srcimg.pixels[ur+1]*k1[0][2]; // upper right
-      var p3 = _srcimg.pixels[ml+1]*k1[1][0]; // left
-      var p4 = _srcimg.pixels[mc+1]*k1[1][1]; // center pixel
-      var p5 = _srcimg.pixels[mr+1]*k1[1][2]; // right
-      var p6 = _srcimg.pixels[ll+1]*k1[2][0]; // lower left
-      var p7 = _srcimg.pixels[lc+1]*k1[2][1]; // lower mid
-      var p8 = _srcimg.pixels[lr+1]*k1[2][2]; // lower right
-      var r1 = p0+p1+p2+p3+p4+p5+p6+p7+p8; 
-			
+			var p0 = _srcimg.pixels[ul+1]*k1[0][0]; // upper left
+			var p1 = _srcimg.pixels[uc+1]*k1[0][1]; // upper mid
+			var p2 = _srcimg.pixels[ur+1]*k1[0][2]; // upper right
+			var p3 = _srcimg.pixels[ml+1]*k1[1][0]; // left
+			var p4 = _srcimg.pixels[mc+1]*k1[1][1]; // center pixel
+			var p5 = _srcimg.pixels[mr+1]*k1[1][2]; // right
+			var p6 = _srcimg.pixels[ll+1]*k1[2][0]; // lower left
+			var p7 = _srcimg.pixels[lc+1]*k1[2][1]; // lower mid
+			var p8 = _srcimg.pixels[lr+1]*k1[2][2]; // lower right
+			var r1 = p0+p1+p2+p3+p4+p5+p6+p7+p8; 
+
 			var p0 = _srcimg.pixels[ul+1]*k2[0][0]; // upper left
-      var p1 = _srcimg.pixels[uc+1]*k2[0][1]; // upper mid
-      var p2 = _srcimg.pixels[ur+1]*k2[0][2]; // upper right
-      var p3 = _srcimg.pixels[ml+1]*k2[1][0]; // left
-      var p4 = _srcimg.pixels[mc+1]*k2[1][1]; // center pixel
-      var p5 = _srcimg.pixels[mr+1]*k2[1][2]; // right
-      var p6 = _srcimg.pixels[ll+1]*k2[2][0]; // lower left
-      var p7 = _srcimg.pixels[lc+1]*k2[2][1]; // lower mid
-      var p8 = _srcimg.pixels[lr+1]*k2[2][2]; // lower right
-      var r2 = p0+p1+p2+p3+p4+p5+p6+p7+p8; 
-      
+			var p1 = _srcimg.pixels[uc+1]*k2[0][1]; // upper mid
+			var p2 = _srcimg.pixels[ur+1]*k2[0][2]; // upper right
+			var p3 = _srcimg.pixels[ml+1]*k2[1][0]; // left
+			var p4 = _srcimg.pixels[mc+1]*k2[1][1]; // center pixel
+			var p5 = _srcimg.pixels[mr+1]*k2[1][2]; // right
+			var p6 = _srcimg.pixels[ll+1]*k2[2][0]; // lower left
+			var p7 = _srcimg.pixels[lc+1]*k2[2][1]; // lower mid
+			var p8 = _srcimg.pixels[lr+1]*k2[2][2]; // lower right
+			var r2 = p0+p1+p2+p3+p4+p5+p6+p7+p8; 
+
+			// 0 is the minimum value the sum could result in and 1414 is the maximum
 			var result = map(sqrt(r1*r1+r2*r2),0,1414,0,255);
 			
-      // write pixels into destination image:
-    	_dstimg.pixels[mc] = result; 
-    	_dstimg.pixels[mc+1] = result; 
-    	_dstimg.pixels[mc+2] = result; 
-    	_dstimg.pixels[mc+3] = 255; 
+			// write pixels into destination image:
+			_dstimg.pixels[mc] = result; 
+			_dstimg.pixels[mc+1] = result; 
+			_dstimg.pixels[mc+2] = result; 
+			_dstimg.pixels[mc+3] = 255; 
 			
-    }
-  }	
+		}
+	}	
 	
 	_dstimg.updatePixels(); // update and display the pixel buffer
 
