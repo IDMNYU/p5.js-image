@@ -2,7 +2,7 @@
 * @Author: Paolla
 * @Date:   2019-07-12 09:35:06
 * @Last Modified by:   Paolla
-* @Last Modified time: 2019-07-15 17:00:43
+* @Last Modified time: 2019-07-19 10:53:52
 */
 
 body{
@@ -394,3 +394,49 @@ table{
 	display: flex;
 	
 }
+
+
+
+
+/*MENU STUFF*/
+
+.menu {
+	display: flex;
+	margin-left: 30%;
+	margin-right: auto;
+}
+
+.img_menu{
+  border-radius: 25px;
+  background: #E8A0AB;;
+  padding: 20px; 
+  width: 200px;
+  height: 100px; 
+}
+
+.vid_menu{
+  border-radius: 25px;
+  background: #E8A0AB;;
+  padding: 20px; 
+  margin-left: 20px;
+  width: 200px;
+  height: 100px; 
+}
+
+.menu p {
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 10px;
+	margin-bottom: auto;
+	text-align: center;
+	color: white;
+}
+
+
+
+
+
+
+
+
+
