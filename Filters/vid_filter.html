@@ -1,0 +1,228 @@
+<!DOCTYPE html PUBLIC>
+<html>
+
+<head>
+
+    <!-- HIGHLIGHT.JS -->
+    <link rel="stylesheet" href="../highlight/styles/tomorrow.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+	<link rel="stylesheet" href="style.css">
+
+	<link href='https://fonts.googleapis.com/css?family=Andika' rel='stylesheet'>
+
+	<link rel="shortcut icon" href="../icon.png" type="image/x-icon" />
+
+	<script
+	  src="https://code.jquery.com/jquery-3.4.0.min.js"
+	  integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg="
+	  crossorigin="anonymous">
+	</script>
+
+	<title>Image Processing</title>
+</head>
+
+<body>
+
+	<div class="header">
+		<h1><a href="../index.html">Image Processing in p5.js</a></h1>
+	</div>
+
+	<div class="wrapper">
+		<div class="bar">
+			<div class="navigation">
+				<p class="subtitle">Tutorials</p>
+				<ul class="nav flex-column">
+					<li class="nav-item">
+				    	<a class="nav-link" href="../index.html">Basic Setup</a>
+				  	</li>
+				 	<li class="nav-item">
+				    	<a class="nav-link active" href="index.html">Filters</a>
+				  	</li>
+				  	<li class="nav-item">
+				    	<a class="nav-link" href="../Layers/index.html">Layers</a>
+				  	</li>
+				  	<li class="nav-item">
+				    	<a class="nav-link" href="../Advanced/index.html">Animation Setup</a>
+				  	</li>
+				  	<li class="nav-item">
+				    	<a class="nav-link" href="../Blur/index.html">Blur</a>
+				  	</li>
+				  	<li class="nav-item">
+				    	<a class="nav-link" href="../Edge/index.html">Edge Detection</a>
+				  	</li>
+				</ul>
+			</div>
+
+			<br>
+
+			<div class="toggle">
+			   <nav>
+					<div class="dropdown">
+					  <button onclick="myFunction()" class="dropbtn">Projects</button>
+					  <div id="myDropdown" class="dropdown-content">
+						<ul class="nav flex-column">
+						 	<li class="nav-item">
+						    	<a class="nav-link active" href="pawair.html">PawAir</a>
+						  	</li>
+						  	<li class="nav-item">
+						    	<a class="nav-link" href="smartpet.html">Smar+Pet</a>
+						  	</li>
+						  	<li class="nav-item">
+						    	<a class="nav-link" href="women.html">Women's Archive</a>
+						  	</li>
+						  	<li class="nav-item">
+						    	<a class="nav-link" href="puppy.html">Feed the Puppy</a>
+						  	</li>
+						  	<li class="nav-item">
+						    	<a class="nav-link" href="firstimpressions.html" tabindex="-1" aria-disabled="true">First Impressions</a>
+						  	</li>
+						  	<li class="nav-item">
+						    	<a class="nav-link" href="wait.html" tabindex="-1" aria-disabled="true">Wait...</a>
+						  	</li>
+						</ul>
+					  </div>
+					</div>
+			   </nav>
+			</div>
+
+		</div>	
+
+		<div class="content">
+
+			<div class="description">
+
+				<div class="menu">
+					<a href="index.html"><div class="img_menu">
+						<p>Image Filter</p>
+					</div></a>
+					<a href="vid_filter.html"><div class="vid_menu">
+						<p>Video Filters</p>
+					</div></a>
+				</div>
+				<br>
+
+				<h2 class="title">Making Filters Using p5.js!</h2>
+				<br>
+				<ol>
+					<li><a href="#capture">Video Capture</a></li>
+				    <li><a href="#copy">Copying Capture</a></li>
+			    	<li><a href="#pixel">Change Pixels</a></li>
+    			</ol>
+
+	    		<h2 class="title" id="capture">Video Capture</h2>
+					<p class="color3">Steps:</p>
+					<ol>
+				    	<li>Create variable for your video = capture</li>
+				    	<li>Use the createCapture method to capture the video. This opens the digitizer</li>
+				    	<li>Set video size to the same dimensions as canvas</li>
+				    	<li>Use hide method to hide <span class="color2">capture feed</span>.</li>
+	    			</ol>
+
+	    			<p class="color2">Vocabulary:</p>
+					<table>
+						<tr>
+							<td>Capture Feed</td>
+							<td style="width: 80%; font-size: 14pt;">A display showing whatthe capmera is capturing in real time.</td>
+						</tr>
+					</table>
+					<br>
+<pre style="width:60%; height: 250px; font-size: 10pt; overflow: auto; margin-left: 20%;"><code class="javascript">
+	var capture; // this is the video camera
+
+	function setup() {
+		createCanvas(640, 480);
+		pixelDensity(1);
+		background(100);
+
+		capture = createCapture(VIDEO); // this opens the digitizer
+		capture.size(640, 480);
+		capture.hide();
+	}
+</code></pre>
+
+					<p>For more information on video capture, <a target="_blank" href="https://p5js.org/examples/dom-video-capture.html">click this link!</a></p>
+
+	    		<h2 class="title" id="copy">Copying Capture</h2>
+	    			<p>Now let's create a varible containing a copy of our video feed. We will need this copy in order to have access to the pixel array. Use the get( ) method to create a pixel array out of our video frames:</p>
+
+<pre style="width:60%; height: 350px; font-size: 10pt; overflow: auto; margin-left: 20%;"><code class="javascript">
+	var capture; // this is the video camera
+	var capimg;
+
+
+	function setup() {
+		createCanvas(640, 480);
+		pixelDensity(1);
+		background(100);
+
+		capture = createCapture(VIDEO); // this opens the digitizer
+		capture.size(640, 480);
+		capture.hide();
+	}
+
+	function draw() {
+		capimg = capture.get(); // copying the video
+	}
+</code></pre>	
+
+	    		<h2 class="title" id="pixel">Change Pixels</h2>
+	    			<p>All you have to do now is alter the pixels however you like! For black & white, negative or sepia filter, check our the <a target="_blank"href="index.html">Image Filter Tutorial!</a></p>
+	    			<p>In this tutorial we are going to do soemthing different! We will apply different color filter depending on where the mouse is on the screen. All we have to is set the red channel to the mouse's X-position, keep the green channel, and make the blue channel the y-position.</p>
+	    			<p>capimg.pixels[i+0] = mouseX;</p>
+					<p>capimg.pixels[i+1] = g;</p>
+					<p>capimg.pixels[i+2] = mouseY;</p>
+
+<pre style="width:60%; height: 350px; font-size: 10pt; overflow: auto; margin-left: 20%;"><code class="javascript">
+var capture; // this is the video camera
+var capimg;
+
+function setup() {
+	createCanvas(640, 480);
+	pixelDensity(1);
+	background(100);
+	
+	capture = createCapture(VIDEO); // this opens the digitizer
+	capture.size(640, 480);
+	capture.hide();
+}
+
+function draw() {
+	capimg = capture.get(); // copying frames
+	
+	if(capimg.width > 0) {
+		capimg.loadPixels(); // getting pixel array
+		
+		for(var i = 0; i < capimg.pixels.length; i += 4) // combination of double for loop mentioned in other tutorials
+		{	
+			var r = capimg.pixels[i+0];
+			var g = capimg.pixels[i+1];
+			var b = capimg.pixels[i+2];
+			
+			capimg.pixels[i+0] = mouseX;
+			capimg.pixels[i+1] = g;
+			capimg.pixels[i+2] = mouseY;
+		}
+		capimg.updatePixels();
+		image(capimg, 0, 0, width, height);
+	}
+}
+</code></pre>
+
+			</div>
+		</div>
+
+	</div>
+
+    <!-- HIGHLIGHT.JS -->
+	<script src="../highlight/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+	<!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="script.js"></script>
+</body>
+</html>

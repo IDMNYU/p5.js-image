@@ -339,3 +339,75 @@ li a {
 .description .imgctr img{
 	width: 400px;
 }
+
+.description .imgctr4 {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.description .imgctr4 img{
+	width: 20%;
+	height: 20%;
+}
+
+
+table{
+	font-family: "Andika";
+	font-size: 18pt;
+	margin-left: auto;
+	margin-right: auto;
+	width: 80%;	
+}
+
+.color1 {
+	color: #FEADB9;
+}
+
+.color2 {
+	color: #BC85A3;
+}
+
+.color3 {
+	color: #9799BA;
+}
+
+
+/*MENU STUFF*/
+
+.menu {
+	display: flex;
+	margin-left: 30%;
+	margin-right: auto;
+}
+
+.img_menu{
+  border-radius: 25px;
+  background: #E8A0AB;;
+  padding: 20px; 
+  width: 200px;
+  height: 100px; 
+}
+
+.vid_menu{
+  border-radius: 25px;
+  background: #E8A0AB;;
+  padding: 20px; 
+  margin-left: 20px;
+  width: 200px;
+  height: 100px; 
+}
+
+.menu p {
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 10px;
+	margin-bottom: auto;
+	text-align: center;
+	color: white;
+}
+
+
+
+
