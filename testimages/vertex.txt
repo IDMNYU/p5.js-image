@@ -1,11 +1,10 @@
-precision highp float; varying highp vec2 vTextureCoord;
-attribute vec3 aPosition;
-attribute vec2 aTextureCoord;
-uniform float xdiff;
-uniform float ydiff;
+'precision highp float; varying highp vec2 vTextureCoord;'+
+'attribute vec3 aPosition;'+
+'attribute vec2 aTextureCoord;'+
+'uniform float xdiff;'+
+'uniform float ydiff;'+
 		
-void main() { 
-	gl_Position = vec4(aPosition,1.0); 
-	vTextureCoord = aTextureCoord;
-	vTextureCoord = (vec2(aPosition.x, aPosition.y*-1.) + 1.0) / 2.0-vec2(xdiff,ydiff);
-}
+'void main() { '+
+	'gl_Position = vec4(aPosition,1.0); '+
+	'vTextureCoord = aTextureCoord;'+
+	'vTextureCoord = (vec2(aPosition.x, aPosition.y*-1.) + 1.0) / 2.0-vec2(xdiff,ydiff);}'
