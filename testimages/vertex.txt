@@ -7,6 +7,5 @@ uniform float ydiff;
 void main() { 
 	gl_Position = vec4(aPosition,1.0); 
 	vTextureCoord = aTextureCoord;
-	//vTextureCoord = vec2(aPosition.x, aPosition.y);
-	vTextureCoord = (vec2(aPosition.x, aPosition.y*-1.) + 1.0) / 2.0-vec2(xdiff,ydiff);//mapping and translating
+	vTextureCoord = (vec2(aPosition.x, aPosition.y*-1.) + 1.0) / 2.0-vec2(xdiff,ydiff);
 }
