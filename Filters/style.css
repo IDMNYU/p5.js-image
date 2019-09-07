@@ -407,6 +407,13 @@ table{
 	text-align: center;
 	color: white;
 }
+#credits {
+    margin-left: 15%;
+    padding-top: 10px;
+}
+#credits a {
+color: #E8A0AB;
+}
 
 
 

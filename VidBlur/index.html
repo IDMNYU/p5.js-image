@@ -2,138 +2,139 @@
 <html>
 
 <head>
-	<!-- HIGHLIGHT.JS -->
-	<link rel="stylesheet" href="../highlight/styles/tomorrow.css">
+    <!-- HIGHLIGHT.JS -->
+    <link rel="stylesheet" href="../highlight/styles/tomorrow.css">
 
-<!-- 	<link rel="stylesheet"
+    <!-- 	<link rel="stylesheet"
 	      href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/default.min.css">
 	<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script> -->
 
 
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-	<link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css">
 
-	<link href='https://fonts.googleapis.com/css?family=Andika' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Andika' rel='stylesheet'>
 
-	<link rel="shortcut icon" href="../icon.png" type="image/x-icon" />
+    <link rel="shortcut icon" href="../icon.png" type="image/x-icon" />
 
-	<script
-	  src="https://code.jquery.com/jquery-3.4.0.min.js"
-	  integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg="
-	  crossorigin="anonymous">
-	</script>
+    <script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous">
+    </script>
 
-	<title>Image Processing</title>
+    <title>Image Processing</title>
 </head>
 
 <body>
 
-	<div class="header">
-		<h1><a href="../index.html">Image Processing in p5.js</a></h1>
-	</div>
+    <div class="header">
+        <h1><a href="../index.html">Image Processing in p5.js</a></h1>
+    </div>
 
-	<div class="wrapper">
-		<div class="bar">
-			<div class="navigation">
-				<p class="subtitle">Tutorials</p>
-				<ul class="nav flex-column">
-					<li class="nav-item">
-				    	<a class="nav-link" href="../index.html">Basic Setup</a>
-				  	</li>
-				 	<li class="nav-item">
-				    	<a class="nav-link" href="../Filters/index.html">Filters</a>
-				  	</li>
-				  	<li class="nav-item">
-				    	<a class="nav-link" href="../Layers/index.html">Layers</a>
-				  	</li>
-				  	<li class="nav-item">
-				    	<a class="nav-link" href="../Advanced/index.html">Animation Setup</a>
-				  	</li>
-				  	<li class="nav-item">
-				    	<a class="nav-link active" href="../Blur/index.html">Blur</a>
-				  	</li>
-				  	<li class="nav-item">
-				    	<a class="nav-link" href="../Edge/index.html">Edge Detection</a>
-				  	</li>
-				</ul>
-			</div>
+    <div class="wrapper">
+        <div class="bar">
+            <div class="navigation">
+                <p class="subtitle">Tutorials</p>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html">Basic Setup</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../Filters/index.html">Filters</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../Layers/index.html">Layers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../Advanced/index.html">Animation Setup</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="../Blur/index.html">Blur</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../Edge/index.html">Edge Detection</a>
+                    </li>
+                </ul>
+            </div>
 
-			<br>
+            <br>
 
-			<div class="toggle">
-			   <nav>
-					<div class="dropdown">
-					  <button onclick="myFunction()" class="dropbtn">Projects</button>
-					  <div id="myDropdown" class="dropdown-content">
-						<ul class="nav flex-column">
-						 	<li class="nav-item">
-						    	<a class="nav-link active" href="pawair.html">PawAir</a>
-						  	</li>
-						  	<li class="nav-item">
-						    	<a class="nav-link" href="smartpet.html">Smar+Pet</a>
-						  	</li>
-						  	<li class="nav-item">
-						    	<a class="nav-link" href="women.html">Women's Archive</a>
-						  	</li>
-						  	<li class="nav-item">
-						    	<a class="nav-link" href="puppy.html">Feed the Puppy</a>
-						  	</li>
-						  	<li class="nav-item">
-						    	<a class="nav-link" href="firstimpressions.html" tabindex="-1" aria-disabled="true">First Impressions</a>
-						  	</li>
-						  	<li class="nav-item">
-						    	<a class="nav-link" href="wait.html" tabindex="-1" aria-disabled="true">Wait...</a>
-						  	</li>
-						</ul>
-					  </div>
-					</div>
-			   </nav>
-			</div>
+            <div class="toggle">
+                <nav>
+                    <div class="dropdown">
+                        <button onclick="myFunction()" class="dropbtn">Projects</button>
+                        <div id="myDropdown" class="dropdown-content">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="pawair.html">PawAir</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="smartpet.html">Smar+Pet</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="women.html">Women's Archive</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="puppy.html">Feed the Puppy</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="firstimpressions.html" tabindex="-1" aria-disabled="true">First Impressions</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="wait.html" tabindex="-1" aria-disabled="true">Wait...</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </div>
 
-		</div>	
+        </div>
 
-		<div class="content">
-			<div class="description">
+        <div class="content">
+            <div class="description">
 
-				<div class="menu">
-					<a href="../Blur/index.html"><div class="img_menu">
-						<p>Image Blur</p>
-					</div></a>
-					<a href="index.html"><div class="vid_menu">
-						<p>Video Blur</p>
-					</div></a>
-				</div>
-				<br>
+                <div class="menu">
+                    <a href="../Blur/index.html">
+                        <div class="img_menu">
+                            <p>Image Blur</p>
+                        </div>
+                    </a>
+                    <a href="index.html">
+                        <div class="vid_menu">
+                            <p>Video Blur</p>
+                        </div>
+                    </a>
+                </div>
+                <br>
 
-				<h2 class="title">Video Blur</h2>
-					<br>
-					<p>In this tutorial we will explain the logic behind an image blur in relation to videos. We recommend that you start our by reading our tutorial on <a target="_blank" href="https://idmnyu.github.io/p5.js-image/Blur/index.html">Blur Logic</a></p>
-					<ol>
-				    	<li><a href="#capture">Video Capture</a></li>
-				    	<li><a href="#copy">Copying Capture</a></li>
-				    	<li><a href="#blur">Blur</a></li>
-				    	<li><a href="#display">Display</a></li>
-	    			</ol>
+                <h2 class="title">Video Blur</h2>
+                <br>
+                <p>In this tutorial we will explain the logic behind an image blur in relation to videos. We recommend that you start our by reading our tutorial on <a target="_blank" href="https://idmnyu.github.io/p5.js-image/Blur/index.html">Blur Logic</a></p>
+                <ol>
+                    <li><a href="#capture">Video Capture</a></li>
+                    <li><a href="#copy">Copying Capture</a></li>
+                    <li><a href="#blur">Blur</a></li>
+                    <li><a href="#display">Display</a></li>
+                </ol>
 
-	    		<h2 class="title" id="capture">Video Capture</h2>
-					<p class="color3">Steps:</p>
-					<ol>
-				    	<li>Create variable for your video = capture</li>
-				    	<li>Use the createCapture method to capture the video. This opens the digitizer</li>
-				    	<li>Set video size to the same dimensions as canvas</li>
-				    	<li>Use hide method to hide <span class="color2">capture feed</span>.</li>
-	    			</ol>
+                <h2 class="title" id="capture">Video Capture</h2>
+                <p class="color3">Steps:</p>
+                <ol>
+                    <li>Create variable for your video = capture</li>
+                    <li>Use the createCapture method to capture the video. This opens the digitizer</li>
+                    <li>Set video size to the same dimensions as canvas</li>
+                    <li>Use hide method to hide <span class="color2">capture feed</span>.</li>
+                </ol>
 
-	    			<p class="color2">Vocabulary:</p>
-					<table>
-						<tr>
-							<td>Capture Feed</td>
-							<td style="width: 80%; font-size: 14pt;">A display showing whatthe capmera is capturing in real time.</td>
-						</tr>
-					</table>
-					<br>
-<pre style="width:60%; height: 250px; font-size: 10pt; overflow: auto; margin-left: 10%;"><code class="javascript">
+                <p class="color2">Vocabulary:</p>
+                <table>
+                    <tr>
+                        <td>Capture Feed</td>
+                        <td style="width: 80%; font-size: 14pt;">A display showing whatthe capmera is capturing in real time.</td>
+                    </tr>
+                </table>
+                <br>
+                <pre style="width:60%; height: 250px; font-size: 10pt; overflow: auto; margin-left: 10%;"><code class="javascript">
 	var capture; // this is the video camera
 
 	function setup() {
@@ -147,12 +148,12 @@
 	}
 </code></pre>
 
-					<p>For more information on video capture, <a target="_blank" href="https://p5js.org/examples/dom-video-capture.html">click this link!</a></p>
+                <p>For more information on video capture, <a target="_blank" href="https://p5js.org/examples/dom-video-capture.html">click this link!</a></p>
 
-	    		<h2 class="title" id="copy">Copying Capture</h2>
-	    			<p>Now let's create a varible containing a copy of our video feed. We will need this copy in order to have access to the pixel array. Use the get( ) method to create a pixel array out of our video frames:</p>
+                <h2 class="title" id="copy">Copying Capture</h2>
+                <p>Now let's create a varible containing a copy of our video feed. We will need this copy in order to have access to the pixel array. Use the get( ) method to create a pixel array out of our video frames:</p>
 
-<pre style="width:60%; height: 350px; font-size: 10pt; overflow: auto; margin-left: 8%;"><code class="javascript">
+                <pre style="width:60%; height: 350px; font-size: 10pt; overflow: auto; margin-left: 8%;"><code class="javascript">
 	var capture; // this is the video camera
 	var capimg;
 
@@ -172,20 +173,20 @@
 	}
 </code></pre>
 
-	    		<h2 class="title" id="blur">Blur</h2>
-	    			<p>The Logic behind our motion blur relies on understanding that every new frame is influenced by the previous frame. The copy, as mentioned, holds the pixel array for our captured video. The blur is an image we create based on our copy. The blur is essentially holding the last frame we created, and the more weight it has on our final image, the more motion blur our video will have. On the other hand, if our copy has a really heigh ratio, our blur will be brief because we will see more of the live footage.</p>
-					<p class="color3">Steps:</p>
-					<ol>
-				    	<li>Create a variable to hold our blur</li>
-				    	<li>Our blur will be an image we create with the same dimensions as our video. Use the createImage( ) method.</li>
-				    	<li>Create two variables: copyRatio and blurRatio. They will hold the weight the copy of the video and our blur will, respectively, have in out final result. The more weight the blur has on the final image, the more blur you’ll have. </li>
-				    	<li>Set a ratio for how much of the copy you want and set the blur to the inverse of that (1 - copyRatio)</li>
-				    	<li>Load Pixels for both copy and blur</li>
-				    	<li>Iterate through all the red values in our pixel array. Check out our <a target="_blank" href="https://idmnyu.github.io/p5.js-image/#loops">Basic Setup</a> for help</li>
-				    	<li>Set RGB values of the blur to the chosen ratio distribution (see code below for further explanation).</li>
-	    			</ol>
+                <h2 class="title" id="blur">Blur</h2>
+                <p>The Logic behind our motion blur relies on understanding that every new frame is influenced by the previous frame. The copy, as mentioned, holds the pixel array for our captured video. The blur is an image we create based on our copy. The blur is essentially holding the last frame we created, and the more weight it has on our final image, the more motion blur our video will have. On the other hand, if our copy has a really heigh ratio, our blur will be brief because we will see more of the live footage.</p>
+                <p class="color3">Steps:</p>
+                <ol>
+                    <li>Create a variable to hold our blur</li>
+                    <li>Our blur will be an image we create with the same dimensions as our video. Use the createImage( ) method.</li>
+                    <li>Create two variables: copyRatio and blurRatio. They will hold the weight the copy of the video and our blur will, respectively, have in out final result. The more weight the blur has on the final image, the more blur you’ll have. </li>
+                    <li>Set a ratio for how much of the copy you want and set the blur to the inverse of that (1 - copyRatio)</li>
+                    <li>Load Pixels for both copy and blur</li>
+                    <li>Iterate through all the red values in our pixel array. Check out our <a target="_blank" href="https://idmnyu.github.io/p5.js-image/#loops">Basic Setup</a> for help</li>
+                    <li>Set RGB values of the blur to the chosen ratio distribution (see code below for further explanation).</li>
+                </ol>
 
-<pre style="width:80%; height: 500px; font-size: 10pt; overflow: auto; margin-left: 10%;"><code class="javascript">
+                <pre style="width:80%; height: 500px; font-size: 10pt; overflow: auto; margin-left: 10%;"><code class="javascript">
 	var capture; // this is the video camera
 	var capimg;
 	var theblur; // this is the blur
@@ -219,10 +220,10 @@
 	}
 </code></pre>
 
-	    		<h2 class="title" id="display">Display</h2>
-	    			<p>To display our final result, all we have to do is update pixels for our blur and use the image() method to display it.</p>
+                <h2 class="title" id="display">Display</h2>
+                <p>To display our final result, all we have to do is update pixels for our blur and use the image() method to display it.</p>
 
-<pre style="width:80%; height: 500px; font-size: 10pt; overflow: auto; margin-left: 10%;"><code class="javascript">
+                <pre style="width:80%; height: 500px; font-size: 10pt; overflow: auto; margin-left: 10%;"><code class="javascript">
 	var capture; // this is the video camera
 	var capimg;
 	var theblur; // this is the blur
@@ -258,19 +259,25 @@
 	}
 </code></pre>
 
-				
-			</div> <!-- description -->
 
-		</div> <!-- content -->
+            </div> <!-- description -->
 
-	</div> <!-- wrapper -->
+        </div> <!-- content -->
 
+    </div> <!-- wrapper -->
+    <div id="credits">
+        <div class="text1">
+            <p>Credit to<a href="https://github.com/CRYSTALMINYICHEN"> Crystal Chen</a> and <a href="https://paollabd.github.io/">Paolla Bruno Dutra.</a> Thanks to <a href="http://lukedubois.com">R. DuBois</a> Luke and <a href="http://tegabrain.com/">Tega Brain</a> at NYU for mentoring :)</p>
+        </div>
+    </div>
 
-	<!-- HIGHLIGHT.JS -->
-	<script src="../highlight/highlight.pack.js"></script>
-	<script>hljs.initHighlightingOnLoad();</script>
+    <!-- HIGHLIGHT.JS -->
+    <script src="../highlight/highlight.pack.js"></script>
+    <script>
+        hljs.initHighlightingOnLoad();
+    </script>
 
-	<!-- Optional JavaScript -->
+    <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
